@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VMS.DataModel.Core.DAL;
 using VMS.DataModel.Core.Entities;
+using VMS.DataModel.Core.Enums;
 using VMS.DataModel.Core.Validators;
 
 namespace VMS.Web.Controllers
@@ -24,7 +25,7 @@ namespace VMS.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Department>>> GetDepartment()
         {
-            return await _context.Department.ToListAsync();
+            return await _context.Department.Where(x=> x.IsDeleted == IsDeleted.False).ToListAsync();
         }
 
         // GET: api/Departments/5
