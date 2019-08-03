@@ -41,7 +41,7 @@ namespace VMS.Utils
                 //Copying the IEnumerable to a List
                 selectedDates = selectedDatesQry.ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Log error
                 //...
