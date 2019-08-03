@@ -22,6 +22,8 @@ namespace VMS.DataModel.Core.DAL
         T GetById(object id);
 
         Task<T> GetByIDAsync(object id);
+
+        int GetCount(Expression<Func<T, bool>> predicate);
         #endregion
 
         #region Insert

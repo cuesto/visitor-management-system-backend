@@ -59,41 +59,11 @@ namespace VMS.DataModel.Core.DAL
             return data;
         }
 
-        //public virtual IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null,
-        //                                          string includeProperties = "")
-        //{
-        //    IQueryable<T> query = _dbSet.AsQueryable();
-
-
-        //    query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-        //                             .Aggregate(query, (current, includeProperty) =>
-        //                                               current.Include(includeProperty));
-
-        //    if (filter == null)
-        //        filter = PredicateBuilder.New<T>(true);
-
-        //    filter = filter.And(c => c.IsDeleted == IsDeleted.False);
-
-        //    if (filter != null)
-        //    {
-        //        query = query.AsExpandable().Where(filter);
-        //    }
-        //    return query;
-        //}
-
         public virtual T GetById(object id)
         {
             return _dbSet.Find(id);
         }
 
-
-        /// <summary>
-        ///     Get count of selection
-        /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns>
-        ///     count of selection
-        /// </returns>
         public int GetCount(Expression<Func<T, bool>> predicate)
         {
             return GetAll(predicate).AsNoTracking().Count();
@@ -136,10 +106,6 @@ namespace VMS.DataModel.Core.DAL
 
         #region Update
 
-        /// <summary>
-        ///     Updates the specified entity to update.
-        /// </summary>
-        /// <param name="entityToUpdate">The entity to update.</param>
         public virtual void Update(T entityToUpdate)
         {
             entityToUpdate.SetValues();
@@ -147,12 +113,6 @@ namespace VMS.DataModel.Core.DAL
             _dbContext.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
-        /// <summary>
-        ///     Updates the specified entity to update.
-        /// </summary>
-        /// <param name="entityToUpdate">The entity to update.</param>
-        /// <param name="validator">The validator.</param>
-        /// <returns></returns>
         public virtual ValidationResult Update(T entityToUpdate, AbstractValidator<T> validator)
         {
             ValidationResult results = validator.Validate(entityToUpdate);
@@ -180,29 +140,17 @@ namespace VMS.DataModel.Core.DAL
             Update(entityToDelete);
         }
 
-        /// <summary>
-        ///     Deletes the specified entity to delete.
-        /// </summary>
-        /// <param name="entityToDelete">The entity to delete.</param>
         public virtual void Delete(T entityToDelete)
         {
             entityToDelete.IsDeleted = IsDeleted.True;
             Update(entityToDelete);
         }
 
-        /// <summary>
-        /// Borra los datos de manera definitiva de la base de datos.
-        /// </summary>
-        /// <param name="entities"></param>
         public virtual void Gone(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
         }
 
-        /// <summary>
-        /// Borra los datos de manera definitiva de la base de datos.
-        /// </summary>
-        /// <param name="entities"></param>
         public virtual void Gone(T entities)
         {
             _dbSet.Remove(entities);
