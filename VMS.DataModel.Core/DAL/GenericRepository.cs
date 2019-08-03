@@ -12,7 +12,7 @@ using VMS.DataModel.Core.Services;
 
 namespace VMS.DataModel.Core.DAL
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : BasdeEntity
     {
         private readonly MyDbContext _dbContext;
         private DbSet<T> _dbSet => _dbContext.Set<T>();
