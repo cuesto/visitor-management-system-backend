@@ -14,6 +14,7 @@ namespace VMS.DataModel.Core.DAL
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
+
         private readonly MyDbContext _dbContext;
         private DbSet<T> _dbSet => _dbContext.Set<T>();
         public IQueryable<T> Entities => _dbSet;
