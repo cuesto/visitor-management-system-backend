@@ -6,8 +6,7 @@
 
   <ItemGroup>
     <Reference Include="consulta-dgii-csharp">
-      <HintPath>..\..\..\VMS\VMS\bin\Debug\consulta-dgii-csharp.dll</HintPath>
-      <Private>true</Private>
+      <HintPath>lib\consulta-dgii-csharp.dll</HintPath>
     </Reference>
   </ItemGroup>
 
