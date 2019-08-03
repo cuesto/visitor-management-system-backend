@@ -16,7 +16,7 @@ namespace VMS.Web.Controllers
     {
         private readonly MyDbContext _context;
 
-        public DepartmentsController(MyDbContext context): base(context)
+        public DepartmentsController(MyDbContext context) : base(context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace VMS.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Department>>> GetDepartment()
         {
-            return await _context.Department.Where(x=> x.IsDeleted == IsDeleted.False).ToListAsync();
+            return await _context.Department.Where(x => x.IsDeleted == IsDeleted.False).ToListAsync();
         }
 
         // GET: api/Departments/5
@@ -51,65 +51,22 @@ namespace VMS.Web.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(department).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DepartmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return await UpdateAsync<Department, DepartmentValidator>(department);
         }
 
         // POST: api/Departments
         [HttpPost]
         public async Task<ActionResult<Department>> PostDepartment(Department department)
         {
-
-            //using(var uow = new UnitOfWork(_context))
-            //{
-            //    uow.GetGenericRepository<Department>().Insert(department, new DepartmentValidator());
-
-            //}
-
-            //_context.Department.Add(department);
-            //await _context.SaveChangesAsync();
-
-           return await CreateAsync<Department,DepartmentValidator>(department);
-
-            //return CreatedAtAction("GetDepartment", new { id = department.DepartmentKey }, department);
+            return await CreateAsync<Department, DepartmentValidator>(department);
         }
 
         // DELETE: api/Departments/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Department>> DeleteDepartment(int id)
         {
-            var department = await _context.Department.FindAsync(id);
-            if (department == null)
-            {
-                return NotFound();
-            }
-
-            _context.Department.Remove(department);
-            await _context.SaveChangesAsync();
-
-            return department;
+            return await DeleteAsync<Department>(id);
         }
 
-        private bool DepartmentExists(int id)
-        {
-            return _context.Department.Any(e => e.DepartmentKey == id);
-        }
     }
 }

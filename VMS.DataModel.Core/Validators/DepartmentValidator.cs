@@ -1,8 +1,5 @@
 ﻿using FluentValidation;
 using LinqKit;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using VMS.DataModel.Core.DAL;
 using VMS.DataModel.Core.Entities;
 
@@ -25,10 +22,10 @@ namespace VMS.DataModel.Core.Validators
             var predicate = PredicateBuilder.New<Department>();
 
             predicate = predicate.And(c => c.DepartmentKey != department.DepartmentKey);
-            predicate = predicate.And(c => c.Description.Trim().ToLower() == description.Trim().ToLower() || c.IsDeleted != Enums.IsDeleted.False);
+            predicate = predicate.And(c => c.Description.Trim().ToLower() == department.Description.Trim().ToLower());
+            predicate = predicate.And(c => c.IsDeleted == Enums.IsDeleted.False);
 
             return _uow.GetGenericRepository<Department>().GetCount(predicate) == 0;
-
         }
     }
 }

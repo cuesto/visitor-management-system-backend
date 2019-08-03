@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentValidation;
-using Microsoft.AspNetCore.Http;
+﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 using VMS.DataModel.Core.Bases;
 using VMS.DataModel.Core.DAL;
 
@@ -32,9 +29,7 @@ namespace VMS.Web.Controllers
                 return new JsonResult("Debe revisar todos los datos del formulario");
             }
 
-            //var entity = new T();
-
-            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { entity, _uow });
+            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
             var validations = _uow.GetGenericRepository<T>().Insert(entity, validator);
 
             if (validations.IsValid)
@@ -47,7 +42,7 @@ namespace VMS.Web.Controllers
             return Json(new { Result = "ERROR", Message = validations.ToString("|") });
         }
 
-        public JsonResult Create<T, TU>()
+        public JsonResult Create<T, TU>(T entity)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
@@ -56,9 +51,7 @@ namespace VMS.Web.Controllers
                 return new JsonResult("Debe llenar todos los datos del formulario");
             }
 
-            var entity = new T();
-
-            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { entity, _uow });
+            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
             var validations = _uow.GetGenericRepository<T>().Insert(entity, validator);
 
             if (validations.IsValid)
@@ -67,7 +60,6 @@ namespace VMS.Web.Controllers
                 var result = entity;
                 return Json(new { Result = "OK", Record = result });
             }
-
             return Json(new { Result = "ERROR", Message = validations.ToString("|") });
         }
 
@@ -75,7 +67,7 @@ namespace VMS.Web.Controllers
 
         #region Update
 
-        public JsonResult Update<T, TU>()
+        public JsonResult Update<T, TU>(T entity)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
@@ -84,9 +76,7 @@ namespace VMS.Web.Controllers
                 return new JsonResult("Debe revisar todos los datos del formulario");
             }
 
-            var entity = new T();
-
-            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { entity, _uow });
+            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
             var validations = _uow.GetGenericRepository<T>().Update(entity, validator);
 
             if (validations.IsValid)
@@ -99,7 +89,7 @@ namespace VMS.Web.Controllers
             return Json(new { Result = "ERROR", Message = validations.ToString("|") });
         }
 
-        public async Task<JsonResult> UpdateAsync<T, TU>()
+        public async Task<JsonResult> UpdateAsync<T, TU>(T entity)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
@@ -108,9 +98,7 @@ namespace VMS.Web.Controllers
                 return new JsonResult("Debe revisar todos los datos del formulario");
             }
 
-            var entity = new T();
-
-            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { entity, _uow });
+            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
             var validations = _uow.GetGenericRepository<T>().Update(entity, validator);
 
             if (validations.IsValid)

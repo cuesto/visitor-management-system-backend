@@ -66,7 +66,7 @@ namespace VMS.DataModel.Core.DAL
 
         public int GetCount(Expression<Func<T, bool>> predicate)
         {
-            return GetAll(predicate).AsNoTracking().Count();
+            return Get(predicate).Count();
         }
 
         #endregion

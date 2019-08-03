@@ -25,7 +25,7 @@ namespace VMS.DataModel.Core.DAL
         {
             _dbContext = dbContext;
         }
-        
+
         public void Save()
         {
             try
