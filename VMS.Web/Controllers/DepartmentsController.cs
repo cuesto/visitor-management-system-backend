@@ -5,16 +5,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using VMS.DataModel.Core.DAL;
 using VMS.DataModel.Core.Entities;
+using VMS.DataModel.Core.Validators;
 
 namespace VMS.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentsController : ControllerBase
+    public class DepartmentsController : BaseController
     {
         private readonly MyDbContext _context;
 
-        public DepartmentsController(MyDbContext context)
+        public DepartmentsController(MyDbContext context): base(context)
         {
             _context = context;
         }
@@ -74,10 +75,19 @@ namespace VMS.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Department>> PostDepartment(Department department)
         {
-            _context.Department.Add(department);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDepartment", new { id = department.DepartmentKey }, department);
+            //using(var uow = new UnitOfWork(_context))
+            //{
+            //    uow.GetGenericRepository<Department>().Insert(department, new DepartmentValidator());
+
+            //}
+
+            //_context.Department.Add(department);
+            //await _context.SaveChangesAsync();
+
+           return await CreateAsync<Department,DepartmentValidator>(department);
+
+            //return CreatedAtAction("GetDepartment", new { id = department.DepartmentKey }, department);
         }
 
         // DELETE: api/Departments/5
