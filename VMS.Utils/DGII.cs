@@ -1,7 +1,4 @@
 ﻿using consulta_dgii_csharp;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace VMS.Utils
 {
