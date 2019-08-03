@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using VMS.DataModel.Core.Bases;
 
 namespace VMS.DataModel.Core.DAL
@@ -8,6 +9,7 @@ namespace VMS.DataModel.Core.DAL
     public interface IUnitOfWork : IDisposable
     {
         void Save();
+        Task SaveAsync();
     }
 
     public class UnitOfWork : IUnitOfWork
@@ -23,12 +25,24 @@ namespace VMS.DataModel.Core.DAL
         {
             _dbContext = dbContext;
         }
-
+        
         public void Save()
         {
             try
             {
                 _dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task SaveAsync()
+        {
+            try
+            {
+                await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
