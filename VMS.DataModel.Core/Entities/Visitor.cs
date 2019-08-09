@@ -16,6 +16,9 @@ namespace VMS.DataModel.Core.Entities
         public string Name { get; set; }
         [Required]
         [StringLength(50)]
+        public string TaxNumberVisitor { get; set; }
+        [Required]
+        [StringLength(50)]
         public string Phone { get; set; }
         [StringLength(50)]
         public string Email { get; set; }
