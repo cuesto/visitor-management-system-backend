@@ -17,6 +17,7 @@ namespace VMS.DataModel.Core.DAL
         public virtual DbSet<EmployeeRequest> EmployeeRequest { get; set; }
         public virtual DbSet<Purpose> Purpose { get; set; }
         public virtual DbSet<Visitor> Visitor { get; set; }
+        public virtual DbSet<BlackList> BlackList { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
