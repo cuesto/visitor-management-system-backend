@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VMS.DataModel.Core\VMS.DataModel.Core.csproj" />
     <ProjectReference Include="..\VMS.Utils\VMS.Utils.csproj" />
   </ItemGroup>
 

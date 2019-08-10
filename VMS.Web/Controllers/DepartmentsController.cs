@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VMS.DataModel.Core.DAL;
-using VMS.DataModel.Core.Entities;
-using VMS.DataModel.Core.Enums;
-using VMS.DataModel.Core.Validators;
+using VMS.DataModel.DAL;
+using VMS.DataModel.Entities;
+using VMS.DataModel.Enums;
+using VMS.DataModel.Validators;
 
 namespace VMS.Web.Controllers
 {

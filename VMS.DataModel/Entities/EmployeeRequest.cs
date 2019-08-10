@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using VMS.DataModel.Core.Bases;
-using VMS.DataModel.Core.Enums;
+using VMS.DataModel.Bases;
+using VMS.DataModel.Enums;
 
-namespace VMS.DataModel.Core.Entities
+namespace VMS.DataModel.Entities
 {
     public class EmployeeRequest : BaseEntity
     {

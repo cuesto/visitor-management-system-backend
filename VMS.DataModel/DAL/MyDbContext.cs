@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Linq;
-using VMS.DataModel.Core.Entities;
+using VMS.DataModel.Entities;
 
-namespace VMS.DataModel.Core.DAL
+namespace VMS.DataModel.DAL
 {
     public class MyDbContext : DbContext
     {

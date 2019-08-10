@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using VMS.DataModel.Core.Bases;
+using VMS.DataModel.Bases;
 
-namespace VMS.DataModel.Core.Entities
+namespace VMS.DataModel.Entities
 {
     public class Employee : BaseEntity
     {

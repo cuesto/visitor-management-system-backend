@@ -1,8 +1,8 @@
 ﻿using System;
-using VMS.DataModel.Core.Bases;
-using VMS.DataModel.Core.Enums;
+using VMS.DataModel.Bases;
+using VMS.DataModel.Enums;
 
-namespace VMS.DataModel.Core.Services
+namespace VMS.DataModel.Services
 {
     public static class BaseEntityServices
     {

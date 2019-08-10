@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using VMS.DataModel.Core.Enums;
+using VMS.DataModel.Enums;
 
-namespace VMS.DataModel.Core.DAL
+namespace VMS.DataModel.DAL
 {
     public interface IGenericRepository<T> where T : class
     {

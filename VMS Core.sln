@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VMS.DataModel.Core", "VMS.DataModel.Core\VMS.DataModel.Core.csproj", "{F997AB21-2571-4B62-B93E-998F6F275DD3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMS.Utils", "VMS.Utils\VMS.Utils.csproj", "{0C468571-9550-43CC-8425-A0610361E426}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VMS.Utils", "VMS.Utils\VMS.Utils.csproj", "{0C468571-9550-43CC-8425-A0610361E426}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VMS.Web", "VMS.Web\VMS.Web.csproj", "{E1A5626C-8CA4-47DB-8C37-4C262E4FC1D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMS.Test", "VMS.Test\VMS.Test.csproj", "{EB29534F-EE3F-4D9E-A16A-E21ABDAEA1E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VMS.Test", "VMS.Test\VMS.Test.csproj", "{EB29534F-EE3F-4D9E-A16A-E21ABDAEA1E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VMS.DataModel", "VMS.DataModel\VMS.DataModel.csproj", "{F690B385-7CD5-4369-B604-9F8521B34E24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F997AB21-2571-4B62-B93E-998F6F275DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F997AB21-2571-4B62-B93E-998F6F275DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F997AB21-2571-4B62-B93E-998F6F275DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F997AB21-2571-4B62-B93E-998F6F275DD3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0C468571-9550-43CC-8425-A0610361E426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0C468571-9550-43CC-8425-A0610361E426}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C468571-9550-43CC-8425-A0610361E426}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{EB29534F-EE3F-4D9E-A16A-E21ABDAEA1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB29534F-EE3F-4D9E-A16A-E21ABDAEA1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB29534F-EE3F-4D9E-A16A-E21ABDAEA1E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F690B385-7CD5-4369-B604-9F8521B34E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F690B385-7CD5-4369-B604-9F8521B34E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F690B385-7CD5-4369-B604-9F8521B34E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F690B385-7CD5-4369-B604-9F8521B34E24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

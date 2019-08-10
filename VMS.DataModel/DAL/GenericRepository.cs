@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using VMS.DataModel.Core.Bases;
-using VMS.DataModel.Core.Enums;
-using VMS.DataModel.Core.Services;
+using VMS.DataModel.Bases;
+using VMS.DataModel.Enums;
+using VMS.DataModel.Services;
 
-namespace VMS.DataModel.Core.DAL
+namespace VMS.DataModel.DAL
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {

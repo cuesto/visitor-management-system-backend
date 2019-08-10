@@ -2,9 +2,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using VMS.DataModel.Core.Bases;
+using VMS.DataModel.Bases;
 
-namespace VMS.DataModel.Core.DAL
+namespace VMS.DataModel.DAL
 {
     public interface IUnitOfWork : IDisposable
     {

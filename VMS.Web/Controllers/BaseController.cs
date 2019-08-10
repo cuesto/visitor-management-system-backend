@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using VMS.DataModel.Core.Bases;
-using VMS.DataModel.Core.DAL;
+using VMS.DataModel.Bases;
+using VMS.DataModel.DAL;
 
 namespace VMS.Web.Controllers
 {

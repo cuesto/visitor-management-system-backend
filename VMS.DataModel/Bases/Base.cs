@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.ComponentModel;
-using VMS.DataModel.Core.Enums;
+using VMS.DataModel.Enums;
 
-namespace VMS.DataModel.Core.Bases
+namespace VMS.DataModel.Bases
 {
     public class Base
     {

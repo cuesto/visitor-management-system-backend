@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
-using VMS.DataModel.Core.DAL;
+using VMS.DataModel.DAL;
 
 namespace VMS.Web
 {

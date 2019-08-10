@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace VMS.DataModel.Core.Bases
+namespace VMS.DataModel.Bases
 {
     public class BaseEntity : Base
     {

@@ -1,4 +1,4 @@
-﻿namespace VMS.DataModel.Core.Enums
+﻿namespace VMS.DataModel.Enums
 {
     public enum Gender
     {

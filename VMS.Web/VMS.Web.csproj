@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VMS.DataModel.Core\VMS.DataModel.Core.csproj" />
+    <ProjectReference Include="..\VMS.DataModel\VMS.DataModel.csproj" />
   </ItemGroup>
 
 </Project>

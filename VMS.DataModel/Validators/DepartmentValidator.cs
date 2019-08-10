@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using LinqKit;
-using VMS.DataModel.Core.DAL;
-using VMS.DataModel.Core.Entities;
+using VMS.DataModel.DAL;
+using VMS.DataModel.Entities;
 
-namespace VMS.DataModel.Core.Validators
+namespace VMS.DataModel.Validators
 {
     public class DepartmentValidator : AbstractValidator<Department>
     {
