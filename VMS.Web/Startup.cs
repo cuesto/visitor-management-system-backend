@@ -29,6 +29,12 @@ namespace VMS.Web
             {
                 c.SwaggerDoc("v1", new Info { Title = "Core API", Description = "VMS API" });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("All",
+                    builder => builder.WithOrigins("*").WithHeaders("*").WithMethods("*"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +58,7 @@ namespace VMS.Web
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger API");
             });
+            app.UseCors("All");
         }
     }
 }
