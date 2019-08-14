@@ -29,10 +29,10 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/Departments/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Department>> GetDepartment(int id)
+        [HttpGet("{key}")]
+        public async Task<ActionResult<Department>> GetDepartment(int key)
         {
-            var department = await _context.Department.FindAsync(id);
+            var department = await _context.Department.FindAsync(key);
 
             if (department == null)
             {
@@ -43,10 +43,10 @@ namespace VMS.Web.Controllers
         }
 
         // PUT: api/Departments/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDepartment(int id, Department department)
+        [HttpPut("{key}")]
+        public async Task<IActionResult> PutDepartment(int key, Department department)
         {
-            if (id != department.DepartmentKey)
+            if (key != department.DepartmentKey)
             {
                 return BadRequest();
             }
@@ -62,10 +62,10 @@ namespace VMS.Web.Controllers
         }
 
         // DELETE: api/Departments/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Department>> DeleteDepartment(int id)
+        [HttpDelete("{key}")]
+        public async Task<ActionResult<Department>> DeleteDepartment(int key)
         {
-            return await DeleteAsync<Department>(id);
+            return await DeleteAsync<Department>(key);
         }
 
     }
