@@ -50,6 +50,7 @@ namespace VMS.Web
                 app.UseHsts();
             }
 
+            app.UseCors("All");
             app.UseHttpsRedirection();
             app.UseMvc();
 
@@ -58,7 +59,7 @@ namespace VMS.Web
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger API");
             });
-            app.UseCors("All");
+            
         }
     }
 }

@@ -22,14 +22,14 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/Departments
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Department>>> GetDepartment()
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<Department>>> GetDepartments()
         {
             return await _context.Department.Where(x => x.IsDeleted == IsDeleted.False).ToListAsync();
         }
 
         // GET: api/Departments/5
-        [HttpGet("{key}")]
+        [HttpGet("[action]/{key}")]
         public async Task<ActionResult<Department>> GetDepartment(int key)
         {
             var department = await _context.Department.FindAsync(key);
@@ -43,26 +43,21 @@ namespace VMS.Web.Controllers
         }
 
         // PUT: api/Departments/5
-        [HttpPut("{key}")]
-        public async Task<IActionResult> PutDepartment(int key, Department department)
+        [HttpPut("[action]")]
+        public async Task<IActionResult> PutDepartment(Department department)
         {
-            if (key != department.DepartmentKey)
-            {
-                return BadRequest();
-            }
-
             return await UpdateAsync<Department, DepartmentValidator>(department);
         }
 
         // POST: api/Departments
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<ActionResult<Department>> PostDepartment(Department department)
         {
             return await CreateAsync<Department, DepartmentValidator>(department);
         }
 
         // DELETE: api/Departments/5
-        [HttpDelete("{key}")]
+        [HttpDelete("[action]/{key}")]
         public async Task<ActionResult<Department>> DeleteDepartment(int key)
         {
             return await DeleteAsync<Department>(key);

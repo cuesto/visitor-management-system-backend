@@ -34,7 +34,16 @@ namespace VMS.DataModel.Entities
         public string Comments { get; set; }
         [StringLength(100)]
         public string Image { get; set; }
-
+        [NotMapped]
+        public string DepartmentName
+        {
+            get
+            {
+                if (Department == null)
+                    return "";
+                return Department.Description;
+            }
+        }
 
         #region Navigation Properties
         [JsonIgnore]

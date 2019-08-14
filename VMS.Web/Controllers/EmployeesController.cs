@@ -25,14 +25,19 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/Employees
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployee()
+        [HttpGet("[action]")]
+        public ActionResult<IEnumerable<Employee>> GetEmployees()
         {
-            return await _context.Employee.Where(x => x.IsDeleted == IsDeleted.False).ToListAsync();
+            using(var uow = new UnitOfWork(_context))
+            {
+                return  uow.GetGenericRepository<Employee>().Get(includeProperties: "Department").ToList();
+            }
+
+            //return await _context.Employee.Where(x => x.IsDeleted == IsDeleted.False).ToListAsync();
         }
 
         // GET: api/Employee/5
-        [HttpGet("{key}")]
+        [HttpGet("[action]/{key}")]
         public async Task<ActionResult<Employee>> GetEmployee(int key)
         {
             var employee = await _context.Employee.FindAsync(key);
@@ -46,26 +51,21 @@ namespace VMS.Web.Controllers
         }
 
         // PUT: api/Employees/5
-        [HttpPut("{key}")]
-        public async Task<IActionResult> PutEmployee(int key, Employee employee)
+        [HttpPut("[action]")]
+        public async Task<IActionResult> PutEmployee(Employee employee)
         {
-            if (key != employee.EmployeeKey)
-            {
-                return BadRequest();
-            }
-
             return await UpdateAsync<Employee, EmployeeValidator>(employee);
         }
 
         // POST: api/Employees
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
             return await CreateAsync<Employee, EmployeeValidator>(employee);
         }
 
         // DELETE: api/Employees/5
-        [HttpDelete("{key}")]
+        [HttpDelete("[action]/{key}")]
         public async Task<ActionResult<Employee>> DeleteEmployee(int id)
         {
             return await DeleteAsync<Employee>(id);
