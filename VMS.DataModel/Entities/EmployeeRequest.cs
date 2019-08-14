@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using VMS.DataModel.Bases;
@@ -43,7 +44,9 @@ namespace VMS.DataModel.Entities
         public Status Status { get; set; }
 
         #region Navigation Properties
+        [JsonIgnore]
         public Employee Employee { get; set; }
+        [JsonIgnore]
         public Purpose Purpose { get; set; }
         #endregion
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using VMS.DataModel.Bases;
@@ -15,7 +16,9 @@ namespace VMS.DataModel.Entities
         public string Description { get; set; }
 
         #region Navigation Properties
+        [JsonIgnore]
         public virtual ICollection<Visitor> Visitors { get; set; }
+        [JsonIgnore]
         public virtual ICollection<EmployeeRequest> EmployeeRequests { get; set; }
         #endregion
     }
