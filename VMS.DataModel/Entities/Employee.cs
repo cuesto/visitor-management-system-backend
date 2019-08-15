@@ -20,8 +20,6 @@ namespace VMS.DataModel.Entities
         [Required]
         public string Name { get; set; }
         [StringLength(50)]
-        public string TaxNumber { get; set; }
-        [StringLength(50)]
         public string OfficePhone { get; set; }
         [StringLength(50)]
         public string OfficePhoneExt { get; set; }
