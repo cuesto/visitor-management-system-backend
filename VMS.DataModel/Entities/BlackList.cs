@@ -7,7 +7,7 @@ using VMS.DataModel.Bases;
 
 namespace VMS.DataModel.Entities
 {
-    public class BlackList : BaseEntity
+    public class BlackList : BaseEntityDate
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,8 +19,7 @@ namespace VMS.DataModel.Entities
         [Required]
         [StringLength(50)]
         public string TaxNumber { get; set; }
-        [StringLength(100)]
-        public string PurposeComment { get; set; }
-        public DateTime? EndDate { get; set; }
+        [StringLength(250)]
+        public string Comment { get; set; }
     }
 }
