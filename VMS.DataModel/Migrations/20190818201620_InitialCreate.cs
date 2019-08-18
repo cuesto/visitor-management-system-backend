@@ -14,16 +14,16 @@ namespace VMS.DataModel.Migrations
                 {
                     BlackListKey = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IsDeleted = table.Column<byte>(nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    TaxNumber = table.Column<string>(maxLength: 50, nullable: false),
+                    Comment = table.Column<string>(maxLength: 250, nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
                     Created = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
                     Modified = table.Column<DateTime>(nullable: true),
                     ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    TaxNumber = table.Column<string>(maxLength: 50, nullable: false),
-                    Comment = table.Column<string>(maxLength: 250, nullable: true)
+                    IsDeleted = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,12 +36,12 @@ namespace VMS.DataModel.Migrations
                 {
                     DepartmentKey = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IsDeleted = table.Column<byte>(nullable: false),
+                    Description = table.Column<string>(maxLength: 50, nullable: false),
                     Created = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
                     Modified = table.Column<DateTime>(nullable: true),
                     ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    Description = table.Column<string>(maxLength: 50, nullable: false)
+                    IsDeleted = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,12 +54,12 @@ namespace VMS.DataModel.Migrations
                 {
                     PurposeKey = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IsDeleted = table.Column<byte>(nullable: false),
+                    Description = table.Column<string>(maxLength: 50, nullable: false),
                     Created = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
                     Modified = table.Column<DateTime>(nullable: true),
                     ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    Description = table.Column<string>(maxLength: 50, nullable: false)
+                    IsDeleted = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,11 +72,6 @@ namespace VMS.DataModel.Migrations
                 {
                     EmployeeKey = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IsDeleted = table.Column<byte>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    Modified = table.Column<DateTime>(nullable: true),
-                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
                     EmployeeId = table.Column<string>(maxLength: 50, nullable: true),
                     DepartmentKey = table.Column<int>(nullable: false),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
@@ -85,7 +80,12 @@ namespace VMS.DataModel.Migrations
                     Email = table.Column<string>(maxLength: 50, nullable: false),
                     MobilePhone = table.Column<string>(maxLength: 50, nullable: true),
                     Comments = table.Column<string>(maxLength: 50, nullable: true),
-                    Image = table.Column<string>(maxLength: 100, nullable: true)
+                    Image = table.Column<string>(maxLength: 100, nullable: true),
+                    Created = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    Modified = table.Column<DateTime>(nullable: true),
+                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    IsDeleted = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -104,11 +104,6 @@ namespace VMS.DataModel.Migrations
                 {
                     EmployeeRequestKey = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IsDeleted = table.Column<byte>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    Modified = table.Column<DateTime>(nullable: true),
-                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
                     EmployeeKey = table.Column<int>(nullable: false),
                     VisitorName = table.Column<string>(maxLength: 50, nullable: true),
                     VisitorEmail = table.Column<string>(maxLength: 50, nullable: true),
@@ -121,7 +116,12 @@ namespace VMS.DataModel.Migrations
                     EndDate = table.Column<DateTime>(type: "date", nullable: true),
                     EndTime = table.Column<TimeSpan>(nullable: true),
                     Comments = table.Column<string>(maxLength: 100, nullable: true),
-                    Status = table.Column<int>(nullable: false)
+                    Status = table.Column<int>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    Modified = table.Column<DateTime>(nullable: true),
+                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    IsDeleted = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -146,11 +146,6 @@ namespace VMS.DataModel.Migrations
                 {
                     VisitorKey = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IsDeleted = table.Column<byte>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    Modified = table.Column<DateTime>(nullable: true),
-                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
                     TaxNumberVisitor = table.Column<string>(maxLength: 50, nullable: false),
                     Phone = table.Column<string>(maxLength: 50, nullable: false),
@@ -165,7 +160,12 @@ namespace VMS.DataModel.Migrations
                     DatetimeIn = table.Column<DateTime>(nullable: true),
                     DatetimeOut = table.Column<DateTime>(nullable: true),
                     EmployeeRequestKey = table.Column<int>(nullable: false),
-                    Status = table.Column<int>(nullable: false)
+                    Status = table.Column<int>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    Modified = table.Column<DateTime>(nullable: true),
+                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    IsDeleted = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {

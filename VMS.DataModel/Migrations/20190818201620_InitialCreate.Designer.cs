@@ -10,7 +10,7 @@ using VMS.DataModel.DAL;
 namespace VMS.DataModel.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20190818200111_InitialCreate")]
+    [Migration("20190818201620_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
