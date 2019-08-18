@@ -25,6 +25,7 @@ namespace VMS.DataModel.Entities
         public string OfficePhoneExt { get; set; }
         [StringLength(50)]
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
         [StringLength(50)]
         public string MobilePhone { get; set; }

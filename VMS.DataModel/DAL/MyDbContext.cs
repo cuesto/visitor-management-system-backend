@@ -19,6 +19,7 @@ namespace VMS.DataModel.DAL
         public virtual DbSet<Visitor> Visitor { get; set; }
         public virtual DbSet<BlackList> BlackList { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

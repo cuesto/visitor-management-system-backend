@@ -22,6 +22,7 @@ namespace VMS.DataModel.Entities
         [StringLength(50)]
         public string Phone { get; set; }
         [StringLength(50)]
+        [EmailAddress]
         public string Email { get; set; }
         [StringLength(50)]
         public string Company { get; set; }

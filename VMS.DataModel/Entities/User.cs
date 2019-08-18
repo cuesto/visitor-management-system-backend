@@ -21,6 +21,7 @@ namespace VMS.DataModel.Entities
         public string Name { get; set; }
         [Required]
         [StringLength(50)]
+        [EmailAddress]
         public string Email { get; set; }
         [Required]
         public byte[] password_hash { get; set; }
