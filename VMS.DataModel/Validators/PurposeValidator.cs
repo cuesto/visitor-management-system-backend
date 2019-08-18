@@ -15,12 +15,12 @@ namespace VMS.DataModel.Validators
         public PurposeValidator(UnitOfWork uow)
         {
             _uow = uow;
-            RuleFor(purpose => purpose.Description)
+            RuleFor(purpose => purpose)
                 .Must(ValidateDescription)
-                .WithMessage("Este Departamento ha sido registrado.");
+                .WithMessage("Este Propósito ha sido registrado.");
         }
 
-        private bool ValidateDescription(Purpose purpose, string description)
+        private bool ValidateDescription(Purpose purpose)
         {
             var predicate = PredicateBuilder.New<Purpose>();
 

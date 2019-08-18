@@ -115,11 +115,11 @@ namespace VMS.Web.Controllers
 
         #region Delete
 
-        public JsonResult Delete<T>(int id) where T : BaseEntity, new()
+        public JsonResult Delete<T>(int key) where T : BaseEntity, new()
         {
             try
             {
-                _uow.GetGenericRepository<T>().Delete(id);
+                _uow.GetGenericRepository<T>().Delete(key);
                 _uow.Save();
                 return Json(new { Result = "OK" });
             }
@@ -130,11 +130,11 @@ namespace VMS.Web.Controllers
 
         }
 
-        public async Task<JsonResult> DeleteAsync<T>(int id) where T : BaseEntity, new()
+        public async Task<JsonResult> DeleteAsync<T>(int key) where T : BaseEntity, new()
         {
             try
             {
-                _uow.GetGenericRepository<T>().Delete(id);
+                _uow.GetGenericRepository<T>().Delete(key);
                 await _uow.SaveAsync();
                 return Json(new { Result = "OK" });
             }

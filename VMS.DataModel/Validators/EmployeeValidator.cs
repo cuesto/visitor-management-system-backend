@@ -15,12 +15,12 @@ namespace VMS.DataModel.Validators
         public EmployeeValidator(UnitOfWork uow)
         {
             _uow = uow;
-            RuleFor(employee => employee.EmployeeId)
+            RuleFor(employee => employee)
                 .Must(ValidateTaxNumber)
                 .WithMessage("Este empleado ha sido registrado.");
         }
 
-        private bool ValidateTaxNumber(Employee employee, string employeeId)
+        private bool ValidateTaxNumber(Employee employee)
         {
             var predicate = PredicateBuilder.New<Employee>();
 

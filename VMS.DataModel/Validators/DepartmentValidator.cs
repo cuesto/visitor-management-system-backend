@@ -12,12 +12,12 @@ namespace VMS.DataModel.Validators
         public DepartmentValidator(UnitOfWork uow)
         {
             _uow = uow;
-            RuleFor(department => department.Description)
+            RuleFor(department => department)
                 .Must(ValidateDescription)
                 .WithMessage("Este Departamento ha sido registrado.");
         }
 
-        private bool ValidateDescription(Department department, string description)
+        private bool ValidateDescription(Department department)
         {
             var predicate = PredicateBuilder.New<Department>();
 
