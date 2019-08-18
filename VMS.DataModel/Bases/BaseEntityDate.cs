@@ -16,6 +16,7 @@ namespace VMS.DataModel.Bases
         [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd")]
         public DateTime? StartDate { get; set; }
 
+        [Required]
         [Display(Name = "Fecha Fin")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "yyyy-MM-dd", ApplyFormatInEditMode = true)]
