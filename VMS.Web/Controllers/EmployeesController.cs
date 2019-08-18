@@ -66,9 +66,9 @@ namespace VMS.Web.Controllers
 
         // DELETE: api/Employees/5
         [HttpDelete("[action]/{key}")]
-        public async Task<ActionResult<Employee>> DeleteEmployee(int id)
+        public async Task<ActionResult<Employee>> DeleteEmployee(int key)
         {
-            return await DeleteAsync<Employee>(id);
+            return await DeleteAsync<Employee>(key);
         }
 
     }

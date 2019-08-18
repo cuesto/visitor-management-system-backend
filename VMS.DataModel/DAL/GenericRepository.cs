@@ -59,9 +59,9 @@ namespace VMS.DataModel.DAL
             return data;
         }
 
-        public virtual T GetById(object id)
+        public virtual T GetById(object key)
         {
-            return _dbSet.Find(id);
+            return _dbSet.Find(key);
         }
 
         public int GetCount(Expression<Func<T, bool>> predicate)
@@ -132,9 +132,9 @@ namespace VMS.DataModel.DAL
 
         #region Delete
 
-        public virtual void Delete(object id)
+        public virtual void Delete(object key)
         {
-            T entityToDelete = _dbSet.Find(id);
+            T entityToDelete = _dbSet.Find(key);
 
             entityToDelete.IsDeleted = IsDeleted.True;
             Update(entityToDelete);
@@ -161,7 +161,7 @@ namespace VMS.DataModel.DAL
         #region implemented
 
 
-        public Task<T> GetByIDAsync(object id)
+        public Task<T> GetByIDAsync(object key)
         {
             throw new NotImplementedException();
         }
