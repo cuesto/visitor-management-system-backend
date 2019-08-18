@@ -30,8 +30,6 @@ namespace VMS.DataModel.Entities
         public string MobilePhone { get; set; }
         [StringLength(50)]
         public string Comments { get; set; }
-        [StringLength(100)]
-        public string Image { get; set; }
         [NotMapped]
         public string DepartmentName
         {
