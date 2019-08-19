@@ -41,6 +41,8 @@ namespace VMS.DataModel.Entities
 
         [NotMapped]
         public string Password { get; set; }
+        [NotMapped]
+        public bool IsNewPassword { get; set; }
 
         #region Navigation Properties
         [JsonIgnore]

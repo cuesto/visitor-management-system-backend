@@ -66,6 +66,9 @@ namespace VMS.Web.Controllers
 
         private User SetPassword(User user)
         {
+            if (!user.IsNewPassword)
+                return user;
+
             BaseEntityServices.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
             user.password_hash = passwordHash;
