@@ -30,10 +30,8 @@ namespace VMS.Web.Controllers
         {
             using(var uow = new UnitOfWork(_context))
             {
-                return  uow.GetGenericRepository<Employee>().Get(includeProperties: "Department").ToList();
+                return  uow.GetGenericRepository<Employee>().Get(includeProperties: "Department").Where(x => x.IsDeleted == IsDeleted.False).ToList();
             }
-
-            //return await _context.Employee.Where(x => x.IsDeleted == IsDeleted.False).ToListAsync();
         }
 
         // GET: api/Employee/5

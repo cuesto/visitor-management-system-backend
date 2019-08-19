@@ -39,6 +39,9 @@ namespace VMS.DataModel.Entities
             }
         }
 
+        [NotMapped]
+        public string Password { get; set; }
+
         #region Navigation Properties
         [JsonIgnore]
         public Role Role { get; set; }
