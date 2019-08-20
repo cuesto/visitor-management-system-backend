@@ -7,7 +7,7 @@ using VMS.DataModel.Enums;
 
 namespace VMS.DataModel.Entities
 {
-    public class EmployeeRequest : BaseEntity
+    public class EmployeeRequest : BaseEntityDate
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -29,20 +29,35 @@ namespace VMS.DataModel.Entities
         [Required]
         [ForeignKey("Purpose")]
         public int PurposeKey { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? BeginDate { get; set; }
-
-        public TimeSpan? BeginTime { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? EndDate { get; set; }
-
+        [Column(TypeName = "time")]
+        public TimeSpan? StartTime { get; set; }
+        [Column(TypeName = "time")]
         public TimeSpan? EndTime { get; set; }
-
         [StringLength(100)]
         public string Comments { get; set; }
         public Status Status { get; set; }
+
+        [NotMapped]
+        public string EmployeeName
+        {
+            get
+            {
+                if (Employee == null)
+                    return "";
+                return Employee.Name;
+            }
+        }
+
+        [NotMapped]
+        public string PurposeDescription
+        {
+            get
+            {
+                if (Purpose == null)
+                    return "";
+                return Purpose.Description;
+            }
+        }
 
         #region Navigation Properties
         [JsonIgnore]

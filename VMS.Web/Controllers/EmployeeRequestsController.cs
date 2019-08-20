@@ -25,9 +25,12 @@ namespace VMS.Web.Controllers
 
         // GET: api/EmployeeRequests
         [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<EmployeeRequest>>> GetEmployeeRequests()
+        public ActionResult<IEnumerable<EmployeeRequest>> GetEmployeeRequests()
         {
-            return await _context.EmployeeRequest.Where(x => x.IsDeleted == IsDeleted.False).ToListAsync();
+            using (var uow = new UnitOfWork(_context))
+            {
+                return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose").Where(x => x.IsDeleted == IsDeleted.False).ToList();
+            }
         }
 
         // GET: api/EmployeeRequests/5
