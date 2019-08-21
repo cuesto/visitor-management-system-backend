@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using VMS.DataModel.Bases;
 using VMS.DataModel.Enums;
+using VMS.DataModel.Services;
 
 namespace VMS.DataModel.Entities
 {
@@ -29,10 +30,21 @@ namespace VMS.DataModel.Entities
         [Required]
         [ForeignKey("Purpose")]
         public int PurposeKey { get; set; }
-        [Column(TypeName = "time")]
-        public TimeSpan? StartTime { get; set; }
-        [Column(TypeName = "time")]
-        public TimeSpan? EndTime { get; set; }
+
+        [Required]
+        [Display(Name = "Fecha Inicio")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "yyyy-MM-dd hh:mm", ApplyFormatInEditMode = true)]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd hh:mm")]
+        public new DateTime? StartDate { get; set; }
+
+        [Required]
+        [Display(Name = "Fecha Fin")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "yyyy-MM-dd hh:mm", ApplyFormatInEditMode = true)]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd hh:mm")]
+        public new DateTime? EndDate { get; set; }
+
         [StringLength(100)]
         public string Comments { get; set; }
         public Status Status { get; set; }
