@@ -42,6 +42,17 @@ namespace VMS.DataModel.Entities
             }
         }
 
+        [NotMapped]
+        public string DisplayAutoComplete
+        {
+            get
+            {
+                if (Department == null)
+                    return "";
+                return $"{EmployeeId} - {Name} - {DepartmentName}";
+            }
+        }
+
         #region Navigation Properties
         [JsonIgnore]
         public Department Department { get; set; }

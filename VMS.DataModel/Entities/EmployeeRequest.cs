@@ -8,7 +8,7 @@ using VMS.DataModel.Services;
 
 namespace VMS.DataModel.Entities
 {
-    public class EmployeeRequest : BaseEntityDate
+    public class EmployeeRequest : BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -33,17 +33,17 @@ namespace VMS.DataModel.Entities
 
         [Required]
         [Display(Name = "Fecha Inicio")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "yyyy-MM-dd hh:mm", ApplyFormatInEditMode = true)]
-        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd hh:mm")]
-        public new DateTime? StartDate { get; set; }
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "yyyy-MM-dd HH:mm", ApplyFormatInEditMode = true)]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm")]
+        public DateTime? StartDate { get; set; }
 
         [Required]
         [Display(Name = "Fecha Fin")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "yyyy-MM-dd hh:mm", ApplyFormatInEditMode = true)]
-        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd hh:mm")]
-        public new DateTime? EndDate { get; set; }
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "yyyy-MM-dd HH:mm", ApplyFormatInEditMode = true)]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm")]
+        public DateTime? EndDate { get; set; }
 
         [StringLength(100)]
         public string Comments { get; set; }

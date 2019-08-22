@@ -29,7 +29,7 @@ namespace VMS.Web.Controllers
         {
             using (var uow = new UnitOfWork(_context))
             {
-                return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose").Where(x => x.IsDeleted == IsDeleted.False).ToList();
+                return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose,Employee.Department").Where(x => x.IsDeleted == IsDeleted.False).ToList();
             }
         }
 
