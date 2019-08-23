@@ -14,6 +14,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VMS.DataModel\VMS.DataModel.csproj" />
+    <ProjectReference Include="..\VMS.Utils\VMS.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="consulta-dgii-csharp">
+      <HintPath>..\VMS.Utils\lib\consulta-dgii-csharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
