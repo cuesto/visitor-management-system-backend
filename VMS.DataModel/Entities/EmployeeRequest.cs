@@ -32,10 +32,9 @@ namespace VMS.DataModel.Entities
         public int PurposeKey { get; set; }
 
         [Column(TypeName = "time")]
-        [JsonConverter(typeof(DateFormatConverter), "HH:mm")]
         public TimeSpan? StartTime { get; set; }
+
         [Column(TypeName = "time")]
-        [JsonConverter(typeof(DateFormatConverter), "HH:mm")]
         public TimeSpan? EndTime { get; set; }
 
         [StringLength(100)]
