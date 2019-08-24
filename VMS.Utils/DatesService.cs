@@ -50,5 +50,48 @@ namespace VMS.Utils
             }
             return selectedDates;
         }
+
+        public static List<DateTime> GetDatesFromCheckBoxes(DateTime beginDate, DateTime endDate, string days)
+        {
+            List<DayOfWeek> daysToCheck = new List<DayOfWeek>();
+            //var days = daysList.Split(',');
+
+            if (days.Contains("mon"))
+            {
+                daysToCheck.Add(DayOfWeek.Monday);
+            }
+
+            if (days.Contains("tue"))
+            {
+                daysToCheck.Add(DayOfWeek.Tuesday);
+            }
+
+            if (days.Contains("wed"))
+            {
+                daysToCheck.Add(DayOfWeek.Wednesday);
+            }
+
+            if (days.Contains("thu"))
+            {
+                daysToCheck.Add(DayOfWeek.Thursday);
+            }
+
+            if (days.Contains("fri"))
+            {
+                daysToCheck.Add(DayOfWeek.Friday);
+            }
+
+            if (days.Contains("sat"))
+            {
+                daysToCheck.Add(DayOfWeek.Saturday);
+            }
+
+            if (days.Contains("sun"))
+            {
+                daysToCheck.Add(DayOfWeek.Sunday);
+            }
+
+            return GetSelectedDaysInPeriod(beginDate, endDate, daysToCheck);
+        }
     }
 }

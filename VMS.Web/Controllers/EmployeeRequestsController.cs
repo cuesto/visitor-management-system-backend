@@ -9,6 +9,7 @@ using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
 using VMS.DataModel.Validators;
+using VMS.Utils;
 
 namespace VMS.Web.Controllers
 {
@@ -56,9 +57,46 @@ namespace VMS.Web.Controllers
 
         // POST: api/EmployeeRequests
         [HttpPost("[action]")]
-        public async Task<ActionResult<EmployeeRequest>> PostEmployeeRequest(EmployeeRequest employeeRequest)
+        public async Task<ActionResult<EmployeeRequest>> PostEmployeeRequest(EmployeeRequest er)
         {
-            return await CreateAsync<EmployeeRequest, EmployeeRequestValidator>(employeeRequest);
+            List<DateTime> dates = DatesService.GetDatesFromCheckBoxes((DateTime)er.StartDate, (DateTime)er.EndDate, er.DaysList);
+
+            if (dates.Count == 0)
+            {
+                dates.Add((DateTime)er.StartDate);
+            }
+
+            foreach (var date in dates)
+            {
+                try
+                {
+                    var employeeReq = new EmployeeRequest()
+                    {
+                        EmployeeKey = er.EmployeeKey,
+                        VisitorName = er.VisitorName,
+                        VisitorEmail = er.VisitorEmail,
+                        VisitorPhone = er.VisitorPhone,
+                        TaxNumber = er.TaxNumber,
+                        Company = er.Company,
+                        PurposeKey = er.PurposeKey,
+                        StartDate = date,
+                        StartTime = er.StartTime,
+                        EndDate = date,
+                        EndTime = er.EndTime,
+                        Comments = er.Comments,
+                        Status = Status.RequestIn,
+                        DaysList = er.DaysList
+                    };
+
+                    await CreateAsync<EmployeeRequest, EmployeeRequestValidator>(employeeReq);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.InnerException);
+                }
+            }
+
+            return Json(new { Result = "OK", Record = "Se registró correctamente." });
         }
 
         // DELETE: api/EmployeeRequests/5

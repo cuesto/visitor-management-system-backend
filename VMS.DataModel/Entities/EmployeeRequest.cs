@@ -63,6 +63,9 @@ namespace VMS.DataModel.Entities
             }
         }
 
+        [NotMapped]
+        public string DaysList { get; set; }
+
         #region Navigation Properties
         [JsonIgnore]
         public Employee Employee { get; set; }
