@@ -7,7 +7,7 @@ using VMS.DataModel.Enums;
 
 namespace VMS.DataModel.Entities
 {
-    public class Visitor : BaseEntity
+    public class Visitor : BaseEntityDate
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -35,13 +35,10 @@ namespace VMS.DataModel.Entities
         [ForeignKey("Purpose")]
         public int PurposeKey { get; set; }
         [StringLength(100)]
-        public string PurposeComment { get; set; }
+        public string Comment { get; set; }
         [Required]
         [ForeignKey("Employee")]
         public int EmployeeKey { get; set; }
-
-        public DateTime? DatetimeIn { get; set; }
-        public DateTime? DatetimeOut { get; set; }
         //[ForeignKey("EmployeeRequest")]
         public int EmployeeRequestKey { get; set; }
 
