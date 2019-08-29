@@ -55,6 +55,8 @@ namespace VMS.Web.Controllers
         [HttpPost("[action]")]
         public async Task<ActionResult<Visitor>> PostVisitor(Visitor visitor)
         {
+            visitor.StartDate = DateTime.Now;
+            visitor.EndDate = DateTime.Now;
             return await CreateAsync<Visitor, VisitorValidator>(visitor);
         }
 

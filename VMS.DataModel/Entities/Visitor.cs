@@ -49,8 +49,8 @@ namespace VMS.DataModel.Entities
         public Purpose Purpose { get; set; }
         [JsonIgnore]
         public Employee Employee { get; set; }
-        [JsonIgnore]
-        public EmployeeRequest EmployeeRequest { get; set; }
+        //[JsonIgnore]
+        //public EmployeeRequest EmployeeRequest { get; set; }
         #endregion
     }
 }
