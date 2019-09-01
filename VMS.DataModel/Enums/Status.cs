@@ -4,6 +4,7 @@
     {
         RequestIn,
         VisitorIn,
-        VisitorOut
+        VisitorOut,
+        VisitorOutBySystem
     }
 }

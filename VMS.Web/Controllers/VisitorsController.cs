@@ -27,7 +27,7 @@ namespace VMS.Web.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<Visitor>>> GetVisitors()
         {
-            return await _context.Visitor.Where(x => x.IsDeleted == IsDeleted.False).ToListAsync();
+            return await _context.Visitor.Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.VisitorIn).ToListAsync();
         }
 
         // GET: api/Visitors/5
