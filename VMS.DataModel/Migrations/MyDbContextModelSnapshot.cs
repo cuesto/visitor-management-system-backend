@@ -33,8 +33,7 @@ namespace VMS.DataModel.Migrations
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(50);
 
-                    b.Property<DateTime?>("EndDate")
-                        .IsRequired();
+                    b.Property<DateTime>("EndDate");
 
                     b.Property<byte>("IsDeleted");
 
@@ -47,8 +46,7 @@ namespace VMS.DataModel.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<DateTime?>("StartDate")
-                        .IsRequired();
+                    b.Property<DateTime>("StartDate");
 
                     b.Property<string>("TaxNumber")
                         .IsRequired()
@@ -155,8 +153,7 @@ namespace VMS.DataModel.Migrations
 
                     b.Property<int>("EmployeeKey");
 
-                    b.Property<DateTime?>("EndDate")
-                        .IsRequired();
+                    b.Property<DateTime>("EndDate");
 
                     b.Property<TimeSpan?>("EndTime")
                         .HasColumnType("time");
@@ -170,8 +167,7 @@ namespace VMS.DataModel.Migrations
 
                     b.Property<int>("PurposeKey");
 
-                    b.Property<DateTime?>("StartDate")
-                        .IsRequired();
+                    b.Property<DateTime>("StartDate");
 
                     b.Property<TimeSpan?>("StartTime")
                         .HasColumnType("time");
@@ -321,8 +317,7 @@ namespace VMS.DataModel.Migrations
 
                     b.Property<int>("EmployeeRequestKey");
 
-                    b.Property<DateTime?>("EndDate")
-                        .IsRequired();
+                    b.Property<DateTime>("EndDate");
 
                     b.Property<int>("Gender");
 
@@ -345,8 +340,7 @@ namespace VMS.DataModel.Migrations
 
                     b.Property<int>("PurposeKey");
 
-                    b.Property<DateTime?>("StartDate")
-                        .IsRequired();
+                    b.Property<DateTime>("StartDate");
 
                     b.Property<int>("Status");
 

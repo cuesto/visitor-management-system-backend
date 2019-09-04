@@ -41,8 +41,18 @@ namespace VMS.DataModel.Entities
         public int EmployeeKey { get; set; }
         //[ForeignKey("EmployeeRequest")]
         public int EmployeeRequestKey { get; set; }
-
         public Status Status { get; set; }
+
+        [NotMapped]
+        public string EmployeeName
+        {
+            get
+            {
+                if (Employee== null)
+                    return "";
+                return Employee.Name;
+            }
+        }
 
         #region Navigation Properties
         [JsonIgnore]

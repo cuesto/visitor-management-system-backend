@@ -32,10 +32,10 @@ namespace VMS.DataModel.Entities
         public int PurposeKey { get; set; }
 
         [Column(TypeName = "time")]
-        public TimeSpan? StartTime { get; set; }
+        public new TimeSpan? StartTime { get; set; }
 
         [Column(TypeName = "time")]
-        public TimeSpan? EndTime { get; set; }
+        public new TimeSpan? EndTime { get; set; }
 
         [StringLength(100)]
         public string Comments { get; set; }

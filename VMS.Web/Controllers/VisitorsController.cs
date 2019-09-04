@@ -25,9 +25,13 @@ namespace VMS.Web.Controllers
 
         // GET: api/Visitors
         [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<Visitor>>> GetVisitors()
+        public ActionResult<IEnumerable<Visitor>> GetVisitors()
         {
-            return await _context.Visitor.Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.VisitorIn).ToListAsync();
+            using (var uow = new UnitOfWork(_context))
+            {
+                return uow.GetGenericRepository<Visitor>().Get(includeProperties: "Employee")
+                    .Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.VisitorIn).ToList();
+            }
         }
 
         // GET: api/Visitors/5
@@ -57,6 +61,7 @@ namespace VMS.Web.Controllers
         {
             visitor.StartDate = DateTime.Now;
             visitor.EndDate = DateTime.Now;
+            visitor.Status = Status.VisitorIn;
             return await CreateAsync<Visitor, VisitorValidator>(visitor);
         }
 
@@ -66,6 +71,5 @@ namespace VMS.Web.Controllers
         {
             return await DeleteAsync<Visitor>(key);
         }
-
     }
 }
