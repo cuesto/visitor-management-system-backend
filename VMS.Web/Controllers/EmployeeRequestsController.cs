@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/EmployeeRequests
+        [Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<EmployeeRequest>> GetEmployeeRequests()
         {
@@ -35,6 +37,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/EmployeeRequests/5
+        [Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]/{key}")]
         public async Task<ActionResult<EmployeeRequest>> GetEmployeeRequest(int key)
         {
@@ -49,6 +52,7 @@ namespace VMS.Web.Controllers
         }
 
         // PUT: api/EmployeeRequests/5
+        [Authorize(Roles = "administrator,recepionist")]
         [HttpPut("[action]")]
         public async Task<IActionResult> PutEmployeeRequest(EmployeeRequest employeeRequest)
         {
@@ -56,6 +60,7 @@ namespace VMS.Web.Controllers
         }
 
         // POST: api/EmployeeRequests
+        [Authorize(Roles = "administrator")]
         [HttpPost("[action]")]
         public async Task<ActionResult<EmployeeRequest>> PostEmployeeRequest(EmployeeRequest er)
         {
@@ -100,6 +105,7 @@ namespace VMS.Web.Controllers
         }
 
         // DELETE: api/EmployeeRequests/5
+        [Authorize(Roles = "administrator")]
         [HttpDelete("[action]/{key}")]
         public async Task<ActionResult<EmployeeRequest>> DeleteEmployeeRequest(int key)
         {

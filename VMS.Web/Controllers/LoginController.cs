@@ -39,10 +39,10 @@ namespace VMS.Web.Controllers
                     .FirstOrDefault(x => x.Name == userName);
 
                 if (user == null)
-                    return BadRequest("Usuario no encontrado.");
+                    return NotFound();
 
                 if (!VerifyPasswordHash(model.password, user.password_hash, user.password_salt))
-                    return BadRequest("Contraseña Incorrecta.");
+                    return NotFound();
 
                 var claims = new List<Claim>
                 {

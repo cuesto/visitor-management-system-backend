@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using VMS.DataModel.Validators;
 
 namespace VMS.Web.Controllers
 {
+    [Authorize(Roles = "administrator,recepionist")]
     [Route("api/[controller]")]
     [ApiController]
     public class VisitorsController : BaseController

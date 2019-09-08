@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/BlackLists
+        [Authorize(Roles= "administrator,recepionist")]
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<BlackList>>> GetBlackLists()
         {
@@ -31,6 +33,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/BlackLists/5
+        [Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]/{key}")]
         public async Task<ActionResult<BlackList>> GetBlackList(int key)
         {
@@ -45,6 +48,7 @@ namespace VMS.Web.Controllers
         }
 
         // PUT: api/BlackLists/5
+        [Authorize(Roles = "administrator")]
         [HttpPut("[action]")]
         public async Task<IActionResult> PutBlackList(BlackList blackList)
         {
@@ -52,6 +56,7 @@ namespace VMS.Web.Controllers
         }
 
         // POST: api/BlackLists
+        [Authorize(Roles = "administrator")]
         [HttpPost("[action]")]
         public async Task<ActionResult<BlackList>> PostBlackList(BlackList blackList)
         {
@@ -59,6 +64,7 @@ namespace VMS.Web.Controllers
         }
 
         // DELETE: api/BlackLists/5
+        [Authorize(Roles = "administrator")]
         [HttpDelete("[action]/{key}")]
         public async Task<ActionResult<BlackList>> DeleteBlackList(int key)
         {

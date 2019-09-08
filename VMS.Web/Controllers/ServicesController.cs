@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VMS.DataModel.DAL;
@@ -21,6 +22,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/VerifyRNC/40220076848
+        [Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]/{rnc}")]
         public ActionResult<object> VerifyRNC(string rnc)
         {
