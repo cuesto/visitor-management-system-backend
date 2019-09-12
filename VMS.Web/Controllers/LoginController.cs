@@ -77,7 +77,7 @@ namespace VMS.Web.Controllers
             var token = new JwtSecurityToken(
               _config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
-              expires: DateTime.Now.AddMinutes(30),
+              expires: DateTime.Now.AddYears(1),
               signingCredentials: creds,
               claims: claims);
 

@@ -32,7 +32,7 @@ namespace VMS.Web.Controllers
         {
             using (var uow = new UnitOfWork(_context))
             {
-                return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose,Employee.Department").Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.RequestIn).ToList();
+                return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose,Employee.Department").Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.RequestIn).OrderByDescending(x => x.EmployeeRequestKey).ToList();
             }
         }
 
@@ -99,6 +99,22 @@ namespace VMS.Web.Controllers
                 {
                     return BadRequest(ex.InnerException);
                 }
+            }
+
+            return Json(new { Result = "OK", Record = "Se registró correctamente." });
+        }
+
+        [Authorize(Roles = "administrator")]
+        [HttpPost("[action]")]
+        public async Task<ActionResult<List<EmployeeRequest>>> PostEmployeeRequests(List<EmployeeRequest> er)
+        {
+            try
+            {
+                await CreateAsync<EmployeeRequest, EmployeeRequestValidator>(er);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException);
             }
 
             return Json(new { Result = "OK", Record = "Se registró correctamente." });

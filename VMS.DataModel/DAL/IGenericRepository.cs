@@ -30,6 +30,7 @@ namespace VMS.DataModel.DAL
         void Insert(T entity);
         ValidationResult Insert(T entity, AbstractValidator<T> validator);
         void Insert(IEnumerable<T> entities);
+        //ValidationResult Insert(IEnumerable<T> entities, AbstractValidator<T> validator);
         #endregion
 
         #region Delete

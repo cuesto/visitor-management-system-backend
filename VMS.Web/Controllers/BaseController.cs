@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using VMS.DataModel.Bases;
 using VMS.DataModel.DAL;
@@ -61,6 +62,32 @@ namespace VMS.Web.Controllers
                 return Json(new { Result = "OK", Record = result });
             }
             return Json(new { Result = "ERROR", Message = validations.ToString("|") });
+        }
+
+        public async Task<JsonResult> CreateAsync<T, TU>(IEnumerable<T> entities)
+            where T : BaseEntity, new()
+            where TU : AbstractValidator<T>
+        {
+            if (!ModelState.IsValid)
+            {
+                return new JsonResult("Debe revisar todos los datos del formulario");
+            }
+
+            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
+
+            foreach (var entity in entities)
+            {
+                var validations = _uow.GetGenericRepository<T>().Insert(entity, validator);
+
+                if (!validations.IsValid)
+                {
+                    return Json(new { Result = "ERROR", Message = validations.ToString("|") });
+                }
+            }
+
+            await _uow.SaveAsync();
+            var result = entities;
+            return Json(new { Result = "OK", Record = result });
         }
 
         #endregion

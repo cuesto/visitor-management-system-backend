@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -101,6 +102,34 @@ namespace VMS.DataModel.DAL
                 });
             _dbSet.AddRange(enumerable);
         }
+
+        //public virtual ValidationResult Insert(IEnumerable<T> entities,  AbstractValidator<T> validator)
+        //{
+        //    var enumerable = entities as List<T> ?? entities.ToList();
+        //    bool validationSucceeded = false;
+        //    ValidationResult results;
+        //    enumerable.ForEach(
+        //       x =>
+        //       {
+        //           results = validator.Validate(x);
+        //           validationSucceeded = results.IsValid;
+        //           if (!validationSucceeded)
+        //           {
+        //               return results;
+        //           }
+
+        //       });
+                   
+           
+           
+
+        //        enumerable.ForEach(
+        //        entity =>
+        //        {
+        //            entity.SetValues();
+        //        });
+        //    _dbSet.AddRange(enumerable);
+        //}
 
         #endregion
 

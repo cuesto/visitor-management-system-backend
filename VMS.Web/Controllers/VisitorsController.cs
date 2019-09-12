@@ -32,7 +32,7 @@ namespace VMS.Web.Controllers
             using (var uow = new UnitOfWork(_context))
             {
                 return uow.GetGenericRepository<Visitor>().Get(includeProperties: "Employee")
-                    .Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.VisitorIn).ToList();
+                    .Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.VisitorIn).OrderByDescending(x => x.VisitorKey).ToList();
             }
         }
 
