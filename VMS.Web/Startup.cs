@@ -53,6 +53,8 @@ namespace VMS.Web
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                     };
                 });
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,8 +72,15 @@ namespace VMS.Web
 
             app.UseCors("All");
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseMvc(routes => {
+                routes.MapRoute(name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapSpaFallbackRoute(
+                name: "spa-fallback",
+                defaults: new { controller = "Home", action = "Index" });
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
