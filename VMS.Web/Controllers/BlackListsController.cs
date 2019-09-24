@@ -71,5 +71,12 @@ namespace VMS.Web.Controllers
             return await DeleteAsync<BlackList>(key);
         }
 
+        [Authorize(Roles = "administrator")]
+        [HttpDelete("[action]")]
+        public async Task<ActionResult<BlackList>> DeleteBlackList(BlackList blackList)
+        {
+            return await DeleteAsync<BlackList>(blackList);
+        }
+
     }
 }

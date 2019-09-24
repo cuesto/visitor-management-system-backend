@@ -90,7 +90,8 @@ namespace VMS.Web.Controllers
                         EndTime = er.EndTime,
                         Comments = er.Comments,
                         Status = Status.RequestIn,
-                        DaysList = er.DaysList
+                        DaysList = er.DaysList,
+                        CreatedBy = er.CreatedBy
                     };
 
                     await CreateAsync<EmployeeRequest, EmployeeRequestValidator>(employeeReq);

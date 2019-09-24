@@ -17,11 +17,11 @@ namespace VMS.DataModel.Services
             //    ? ""
             //    : Environment.UserName;
 
-            if (string.IsNullOrEmpty(entityBase.CreatedBy))
+            if (string.IsNullOrEmpty(entityBase.ModifiedBy))
             {
                 entityBase.Created = DateTime.Now;
                 //entityBase.CreatedBy = userName;
-                entityBase.IsDeleted = IsDeleted.False;
+                //entityBase.IsDeleted = IsDeleted.False;
             }
             else
             {

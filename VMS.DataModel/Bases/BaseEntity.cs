@@ -10,14 +10,14 @@ namespace VMS.DataModel.Bases
         [JsonIgnore]
         [HiddenInput(DisplayValue = false)]
         public DateTime? Created { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         [MaxLength(50)]
         [HiddenInput(DisplayValue = false)]
         public string CreatedBy { get; set; }
         [JsonIgnore]
         [HiddenInput(DisplayValue = false)]
         public DateTime? Modified { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         [HiddenInput(DisplayValue = false)]
         [MaxLength(50)]
         public string ModifiedBy { get; set; }
