@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,31 @@ namespace VMS.Web.Controllers
         public PurposesController(MyDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        // GET: api/VisitorByPurpose
+        [Authorize(Roles = "administrator,recepionist")]
+        [HttpGet("[action]")]
+        public ActionResult<IEnumerable<PurposeCount>> GetVisitorsPurpose()
+        {
+            using (var uow = new UnitOfWork(_context))
+            {
+                var visitors = uow.GetGenericRepository<Visitor>().Get().Where(x => x.IsDeleted == IsDeleted.False
+                && x.Status == Status.VisitorIn).ToList();
+                var purposes = uow.GetGenericRepository<Purpose>().Get().Where(x => x.IsDeleted == IsDeleted.False).ToList();
+                var visitorsByPurposeList = new List<PurposeCount>();
+
+                purposes.ForEach(x =>
+                {
+                    visitorsByPurposeList.Add(new PurposeCount
+                    {
+                        description = x.Description,
+                        value = visitors.Where(c => c.PurposeKey == x.PurposeKey).Count()
+                    });
+                });
+
+                return visitorsByPurposeList.OrderByDescending(x => x.value).ToList();
+            }
         }
 
         // GET: api/Purposes
@@ -65,5 +91,11 @@ namespace VMS.Web.Controllers
             return await DeleteAsync<Purpose>(key);
         }
 
+    }
+
+    public class PurposeCount
+    {
+        public string description { get; set; }
+        public int value { get; set; }
     }
 }

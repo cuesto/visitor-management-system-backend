@@ -5,6 +5,7 @@
         RequestIn,
         VisitorIn,
         VisitorOut,
-        VisitorOutBySystem
+        VisitorOutBySystem,
+        RequestOutBySystem
     }
 }

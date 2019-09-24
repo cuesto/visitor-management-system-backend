@@ -22,11 +22,9 @@ namespace VMS.DataModel.Entities
         [StringLength(50)]
         public string Phone { get; set; }
         [StringLength(50)]
-        [EmailAddress]
         public string Email { get; set; }
         [StringLength(50)]
         public string Company { get; set; }
-        [Required]
         [StringLength(50)]
         public string TaxNumber { get; set; }
         public Gender Gender { get; set; }
@@ -48,7 +46,7 @@ namespace VMS.DataModel.Entities
         {
             get
             {
-                if (Employee== null)
+                if (Employee == null)
                     return "";
                 return Employee.Name;
             }
@@ -59,8 +57,6 @@ namespace VMS.DataModel.Entities
         public Purpose Purpose { get; set; }
         [JsonIgnore]
         public Employee Employee { get; set; }
-        //[JsonIgnore]
-        //public EmployeeRequest EmployeeRequest { get; set; }
         #endregion
     }
 }

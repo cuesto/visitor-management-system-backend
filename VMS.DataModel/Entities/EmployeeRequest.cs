@@ -19,7 +19,6 @@ namespace VMS.DataModel.Entities
         [StringLength(50)]
         public string VisitorName { get; set; }
         [StringLength(50)]
-        [EmailAddress]
         public string VisitorEmail { get; set; }
         [StringLength(50)]
         public string VisitorPhone { get; set; }

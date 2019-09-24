@@ -28,7 +28,7 @@ namespace VMS.Web.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult> Login(Login model)
+        public ActionResult Login(Login model)
         {
             using (var uow = new UnitOfWork(_context))
             {
