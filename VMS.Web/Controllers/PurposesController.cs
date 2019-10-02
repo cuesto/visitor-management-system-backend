@@ -25,7 +25,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/VisitorByPurpose
-        [Authorize(Roles = "administrator,recepionist")]
+        //[Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<PurposeCount>> GetVisitorsPurpose()
         {

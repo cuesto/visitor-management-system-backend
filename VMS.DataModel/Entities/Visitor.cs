@@ -52,6 +52,28 @@ namespace VMS.DataModel.Entities
             }
         }
 
+        [NotMapped]
+        public string purposeDisplay
+        {
+            get
+            {
+                if (Purpose == null)
+                    return "";
+                return Purpose.Description;
+            }
+        }
+
+        [NotMapped]
+        public string departmentDisplay
+        {
+            get
+            {
+                if (Employee == null)
+                    return "";
+                return Employee.DepartmentName;
+            }
+        }
+
         #region Navigation Properties
         [JsonIgnore]
         public Purpose Purpose { get; set; }
