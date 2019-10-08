@@ -18,7 +18,6 @@ namespace VMS.DataModel.Entities
         [Required]
         [StringLength(50)]
         public string TaxNumberVisitor { get; set; }
-        [Required]
         [StringLength(50)]
         public string Phone { get; set; }
         [StringLength(50)]
