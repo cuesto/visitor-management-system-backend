@@ -10,38 +10,16 @@ namespace VMS.DataModel.DAL
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasData(
-                    new User
-                    {
-                        Name = "administrator",
-                        Role = new Role
-                        {
-                            Name = "Admin",
-                            Description = "Administrador",
-                            Created = DateTime.Now,
-                            CreatedBy = "System",
-                            IsDeleted = Enums.IsDeleted.False,
-
-                        },
-                        Created = DateTime.Now,
-                        CreatedBy = "System",
-                        IsDeleted = Enums.IsDeleted.False,
-                    }
-
-                );
-
             modelBuilder.Entity<Role>().HasData(
                     new Role
                     {
+                        RoleKey = 1,
                         Name = "Admin",
                         Description = "Administrador",
                         Created = DateTime.Now,
                         CreatedBy = "System",
                         IsDeleted = Enums.IsDeleted.False,
-
-                    }
-
-                ) ;
+                    });
         }
     }
 }
