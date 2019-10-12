@@ -37,6 +37,7 @@ namespace VMS.DataModel.DAL
                     .ForEach(fk => fk.DeleteBehavior = DeleteBehavior.Restrict);
             }
 
+            modelBuilder.Seed();
 
             base.OnModelCreating(modelBuilder);
         }
