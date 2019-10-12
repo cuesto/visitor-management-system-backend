@@ -77,6 +77,7 @@ namespace VMS.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseMvc();
             //app.UseMvc(routes =>
             //{
             //    routes.MapRoute(name: "default",
