@@ -25,8 +25,11 @@ namespace VMS.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.AddDbContext<MyDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
+
             services.AddDbContext<MyDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
+               options.UseSqlite(Configuration.GetConnectionString("SQLiteConnection")));
 
             services.AddSwaggerGen(c =>
             {
@@ -74,14 +77,14 @@ namespace VMS.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapSpaFallbackRoute(
-                name: "spa-fallback",
-                defaults: new { controller = "Home", action = "Index" });
-            });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //    routes.MapSpaFallbackRoute(
+            //    name: "spa-fallback",
+            //    defaults: new { controller = "Home", action = "Index" });
+            //});
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

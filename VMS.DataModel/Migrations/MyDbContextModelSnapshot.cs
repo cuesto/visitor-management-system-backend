@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VMS.DataModel.DAL;
 
@@ -15,15 +14,12 @@ namespace VMS.DataModel.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
             modelBuilder.Entity("VMS.DataModel.Entities.BlackList", b =>
                 {
                     b.Property<int>("BlackListKey")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Comment")
                         .HasMaxLength(250);
@@ -60,8 +56,7 @@ namespace VMS.DataModel.Migrations
             modelBuilder.Entity("VMS.DataModel.Entities.Department", b =>
                 {
                     b.Property<int>("DepartmentKey")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime?>("Created");
 
@@ -87,8 +82,7 @@ namespace VMS.DataModel.Migrations
             modelBuilder.Entity("VMS.DataModel.Entities.Employee", b =>
                 {
                     b.Property<int>("EmployeeKey")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Comments")
                         .HasMaxLength(50);
@@ -137,8 +131,7 @@ namespace VMS.DataModel.Migrations
             modelBuilder.Entity("VMS.DataModel.Entities.EmployeeRequest", b =>
                 {
                     b.Property<int>("EmployeeRequestKey")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Comments")
                         .HasMaxLength(100);
@@ -198,8 +191,7 @@ namespace VMS.DataModel.Migrations
             modelBuilder.Entity("VMS.DataModel.Entities.Purpose", b =>
                 {
                     b.Property<int>("PurposeKey")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime?>("Created");
 
@@ -225,8 +217,7 @@ namespace VMS.DataModel.Migrations
             modelBuilder.Entity("VMS.DataModel.Entities.Role", b =>
                 {
                     b.Property<int>("RoleKey")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime?>("Created");
 
@@ -255,8 +246,7 @@ namespace VMS.DataModel.Migrations
             modelBuilder.Entity("VMS.DataModel.Entities.User", b =>
                 {
                     b.Property<int>("UserKey")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime?>("Created");
 
@@ -296,8 +286,7 @@ namespace VMS.DataModel.Migrations
             modelBuilder.Entity("VMS.DataModel.Entities.Visitor", b =>
                 {
                     b.Property<int>("VisitorKey")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Comment")
                         .HasMaxLength(100);

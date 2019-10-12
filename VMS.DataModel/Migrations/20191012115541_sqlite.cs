@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VMS.DataModel.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class sqlite : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,17 +12,17 @@ namespace VMS.DataModel.Migrations
                 columns: table => new
                 {
                     BlackListKey = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    TaxNumber = table.Column<string>(maxLength: 50, nullable: false),
-                    Comment = table.Column<string>(maxLength: 250, nullable: true),
-                    StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false),
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsDeleted = table.Column<byte>(nullable: false),
                     Created = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
                     Modified = table.Column<DateTime>(nullable: true),
                     ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    IsDeleted = table.Column<byte>(nullable: false)
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    TaxNumber = table.Column<string>(maxLength: 50, nullable: false),
+                    Comment = table.Column<string>(maxLength: 250, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -35,13 +34,13 @@ namespace VMS.DataModel.Migrations
                 columns: table => new
                 {
                     DepartmentKey = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(maxLength: 50, nullable: false),
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsDeleted = table.Column<byte>(nullable: false),
                     Created = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
                     Modified = table.Column<DateTime>(nullable: true),
                     ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    IsDeleted = table.Column<byte>(nullable: false)
+                    Description = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,13 +52,13 @@ namespace VMS.DataModel.Migrations
                 columns: table => new
                 {
                     PurposeKey = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(maxLength: 50, nullable: false),
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsDeleted = table.Column<byte>(nullable: false),
                     Created = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
                     Modified = table.Column<DateTime>(nullable: true),
                     ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    IsDeleted = table.Column<byte>(nullable: false)
+                    Description = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,11 +66,35 @@ namespace VMS.DataModel.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    RoleKey = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsDeleted = table.Column<byte>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    Modified = table.Column<DateTime>(nullable: true),
+                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.RoleKey);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employee",
                 columns: table => new
                 {
                     EmployeeKey = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsDeleted = table.Column<byte>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    Modified = table.Column<DateTime>(nullable: true),
+                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
                     EmployeeId = table.Column<string>(maxLength: 50, nullable: true),
                     DepartmentKey = table.Column<int>(nullable: false),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
@@ -79,13 +102,7 @@ namespace VMS.DataModel.Migrations
                     OfficePhoneExt = table.Column<string>(maxLength: 50, nullable: true),
                     Email = table.Column<string>(maxLength: 50, nullable: false),
                     MobilePhone = table.Column<string>(maxLength: 50, nullable: true),
-                    Comments = table.Column<string>(maxLength: 50, nullable: true),
-                    Image = table.Column<string>(maxLength: 100, nullable: true),
-                    Created = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    Modified = table.Column<DateTime>(nullable: true),
-                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    IsDeleted = table.Column<byte>(nullable: false)
+                    Comments = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -99,11 +116,46 @@ namespace VMS.DataModel.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    UserKey = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsDeleted = table.Column<byte>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    Modified = table.Column<DateTime>(nullable: true),
+                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    RoleKey = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Email = table.Column<string>(maxLength: 50, nullable: false),
+                    password_hash = table.Column<byte[]>(nullable: false),
+                    password_salt = table.Column<byte[]>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.UserKey);
+                    table.ForeignKey(
+                        name: "FK_User_Role_RoleKey",
+                        column: x => x.RoleKey,
+                        principalTable: "Role",
+                        principalColumn: "RoleKey",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EmployeeRequest",
                 columns: table => new
                 {
                     EmployeeRequestKey = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsDeleted = table.Column<byte>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    Modified = table.Column<DateTime>(nullable: true),
+                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
                     EmployeeKey = table.Column<int>(nullable: false),
                     VisitorName = table.Column<string>(maxLength: 50, nullable: true),
                     VisitorEmail = table.Column<string>(maxLength: 50, nullable: true),
@@ -111,17 +163,10 @@ namespace VMS.DataModel.Migrations
                     TaxNumber = table.Column<string>(maxLength: 50, nullable: true),
                     Company = table.Column<string>(maxLength: 50, nullable: true),
                     PurposeKey = table.Column<int>(nullable: false),
-                    BeginDate = table.Column<DateTime>(type: "date", nullable: true),
-                    BeginTime = table.Column<TimeSpan>(nullable: true),
-                    EndDate = table.Column<DateTime>(type: "date", nullable: true),
-                    EndTime = table.Column<TimeSpan>(nullable: true),
+                    StartTime = table.Column<TimeSpan>(type: "time", nullable: true),
+                    EndTime = table.Column<TimeSpan>(type: "time", nullable: true),
                     Comments = table.Column<string>(maxLength: 100, nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    Modified = table.Column<DateTime>(nullable: true),
-                    ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    IsDeleted = table.Column<byte>(nullable: false)
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -145,27 +190,27 @@ namespace VMS.DataModel.Migrations
                 columns: table => new
                 {
                     VisitorKey = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    TaxNumberVisitor = table.Column<string>(maxLength: 50, nullable: false),
-                    Phone = table.Column<string>(maxLength: 50, nullable: false),
-                    Email = table.Column<string>(maxLength: 50, nullable: true),
-                    Company = table.Column<string>(maxLength: 50, nullable: true),
-                    TaxNumber = table.Column<string>(maxLength: 50, nullable: false),
-                    Gender = table.Column<int>(nullable: false),
-                    Image = table.Column<string>(nullable: true),
-                    PurposeKey = table.Column<int>(nullable: false),
-                    PurposeComment = table.Column<string>(maxLength: 100, nullable: true),
-                    EmployeeKey = table.Column<int>(nullable: false),
-                    DatetimeIn = table.Column<DateTime>(nullable: true),
-                    DatetimeOut = table.Column<DateTime>(nullable: true),
-                    EmployeeRequestKey = table.Column<int>(nullable: false),
-                    Status = table.Column<int>(nullable: false),
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsDeleted = table.Column<byte>(nullable: false),
                     Created = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(maxLength: 50, nullable: true),
                     Modified = table.Column<DateTime>(nullable: true),
                     ModifiedBy = table.Column<string>(maxLength: 50, nullable: true),
-                    IsDeleted = table.Column<byte>(nullable: false)
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    TaxNumberVisitor = table.Column<string>(maxLength: 50, nullable: false),
+                    Phone = table.Column<string>(maxLength: 50, nullable: true),
+                    Email = table.Column<string>(maxLength: 50, nullable: true),
+                    Company = table.Column<string>(maxLength: 50, nullable: true),
+                    TaxNumber = table.Column<string>(maxLength: 50, nullable: true),
+                    Gender = table.Column<int>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
+                    PurposeKey = table.Column<int>(nullable: false),
+                    Comment = table.Column<string>(maxLength: 100, nullable: true),
+                    EmployeeKey = table.Column<int>(nullable: false),
+                    EmployeeRequestKey = table.Column<int>(nullable: false),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -175,12 +220,6 @@ namespace VMS.DataModel.Migrations
                         column: x => x.EmployeeKey,
                         principalTable: "Employee",
                         principalColumn: "EmployeeKey",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Visitor_EmployeeRequest_EmployeeRequestKey",
-                        column: x => x.EmployeeRequestKey,
-                        principalTable: "EmployeeRequest",
-                        principalColumn: "EmployeeRequestKey",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Visitor_Purpose_PurposeKey",
@@ -206,14 +245,14 @@ namespace VMS.DataModel.Migrations
                 column: "PurposeKey");
 
             migrationBuilder.CreateIndex(
+                name: "IX_User_RoleKey",
+                table: "User",
+                column: "RoleKey");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Visitor_EmployeeKey",
                 table: "Visitor",
                 column: "EmployeeKey");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Visitor_EmployeeRequestKey",
-                table: "Visitor",
-                column: "EmployeeRequestKey");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Visitor_PurposeKey",
@@ -227,10 +266,16 @@ namespace VMS.DataModel.Migrations
                 name: "BlackList");
 
             migrationBuilder.DropTable(
+                name: "EmployeeRequest");
+
+            migrationBuilder.DropTable(
+                name: "User");
+
+            migrationBuilder.DropTable(
                 name: "Visitor");
 
             migrationBuilder.DropTable(
-                name: "EmployeeRequest");
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "Employee");
