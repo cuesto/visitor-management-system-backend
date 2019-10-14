@@ -1,5 +1,6 @@
 ﻿using System;
 using VMS.DataModel.Bases;
+using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
 
 namespace VMS.DataModel.Services
@@ -28,6 +29,18 @@ namespace VMS.DataModel.Services
                 //entityBase.ModifiedBy = userName;
                 entityBase.Modified = DateTime.Now;
             }
+        }
+
+        public static User SetPassword(User user)
+        {
+            if (!user.IsNewPassword)
+                return user;
+
+            CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+
+            user.password_hash = passwordHash;
+            user.password_salt = passwordSalt;
+            return user;
         }
 
         public static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

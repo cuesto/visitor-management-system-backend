@@ -30,21 +30,23 @@ namespace VMS.Web.Controllers
         [HttpPost("[action]")]
         public ActionResult Login(Login model)
         {
-            using (var uow = new UnitOfWork(_context))
+            try
             {
-                var userName = model.userName.ToLower();
+                using (var uow = new UnitOfWork(_context))
+                {
+                    var userName = model.userName.ToLower();
 
-                var user = uow.GetGenericRepository<User>().Get(includeProperties: "Role")
-                    .Where(x => x.IsDeleted == DataModel.Enums.IsDeleted.False)
-                    .FirstOrDefault(x => x.Name == userName);
+                    var user = uow.GetGenericRepository<User>().Get(includeProperties: "Role")
+                        .Where(x => x.IsDeleted == DataModel.Enums.IsDeleted.False)
+                        .FirstOrDefault(x => x.Name == userName);
 
-                if (user == null)
-                    return NotFound();
+                    if (user == null)
+                        return NotFound();
 
-                if (!VerifyPasswordHash(model.password, user.password_hash, user.password_salt))
-                    return NotFound();
+                    if (!VerifyPasswordHash(model.password, user.password_hash, user.password_salt))
+                        return NotFound();
 
-                var claims = new List<Claim>
+                    var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.UserKey.ToString()),
                     new Claim(ClaimTypes.Email, userName),
@@ -54,9 +56,13 @@ namespace VMS.Web.Controllers
                     new Claim("name",user.Name)
                 };
 
-                return  Ok(
-                   new { token = GenerateToken(claims) }
-               );
+                    return Ok(
+                       new { token = GenerateToken(claims) }
+                   );
+                }
+            }catch(Exception ex)
+            {
+                throw ex;
             }
         }
 

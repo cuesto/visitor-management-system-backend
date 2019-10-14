@@ -84,6 +84,13 @@ namespace VMS.Web.Controllers
             return await CreateAsync<Purpose, PurposeValidator>(Purpose);
         }
 
+        // POST: api/Purposes
+        [HttpPost("[action]")]
+        public async Task<ActionResult<Purpose>> PostPurposes(IEnumerable<Purpose> Purposes)
+        {
+            return await CreateAsync<Purpose, PurposeValidator>(Purposes);
+        }
+
         // DELETE: api/Purposes/5
         [HttpDelete("[action]/{key}")]
         public async Task<ActionResult<Purpose>> DeletePurpose(int key)

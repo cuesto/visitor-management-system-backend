@@ -14,7 +14,7 @@ using VMS.DataModel.Validators;
 
 namespace VMS.Web.Controllers
 {
-    //[Authorize(Roles = "administrator")]
+    [Authorize(Roles = "administrator")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : BaseController
@@ -54,7 +54,7 @@ namespace VMS.Web.Controllers
         [HttpPut("[action]")]
         public async Task<IActionResult> PutUser(User user)
         {
-            user = SetPassword(user);
+            user = BaseEntityServices.SetPassword(user);
             return await UpdateAsync<User, UserValidator>(user);
         }
 
@@ -62,20 +62,8 @@ namespace VMS.Web.Controllers
         [HttpPost("[action]")]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            user = SetPassword(user);
+            user = BaseEntityServices.SetPassword(user);
             return await CreateAsync<User, UserValidator>(user);
-        }
-
-        private User SetPassword(User user)
-        {
-            if (!user.IsNewPassword)
-                return user;
-
-            BaseEntityServices.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
-
-            user.password_hash = passwordHash;
-            user.password_salt = passwordSalt;
-            return user;
         }
 
         // DELETE: api/Users/5

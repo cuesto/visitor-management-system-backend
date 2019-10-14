@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using ElmahCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -58,6 +59,7 @@ namespace VMS.Web
                 });
 
             services.AddMvc();
+            services.AddElmah();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,22 +79,22 @@ namespace VMS.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseMvc();
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-            //    routes.MapSpaFallbackRoute(
-            //    name: "spa-fallback",
-            //    defaults: new { controller = "Home", action = "Index" });
-            //});
+            //app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapSpaFallbackRoute(
+                name: "spa-fallback",
+                defaults: new { controller = "Home", action = "Index" });
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger API");
             });
-
+            app.UseElmah();
         }
     }
 }

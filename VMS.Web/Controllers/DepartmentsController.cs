@@ -57,6 +57,13 @@ namespace VMS.Web.Controllers
             return await CreateAsync<Department, DepartmentValidator>(department);
         }
 
+        // POST: api/Departments
+        [HttpPost("[action]")]
+        public async Task<ActionResult<Department>> PostDepartments(IEnumerable<Department> departments)
+        {
+            return await CreateAsync<Department, DepartmentValidator>(departments);
+        }
+
         // DELETE: api/Departments/5
         [HttpDelete("[action]/{key}")]
         public async Task<ActionResult<Department>> DeleteDepartment(int key)
