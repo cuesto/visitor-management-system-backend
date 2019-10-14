@@ -32,7 +32,7 @@ namespace VMS.Web.Controllers
         {
             using (var uow = new UnitOfWork(_context))
             {
-                return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose,Employee.Department").Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.RequestIn).OrderByDescending(x => x.EmployeeRequestKey).ToList();
+                return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose,Employee.Department").Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.RequestIn && x.StartDate >= (DateTime.Today.AddDays(0))).OrderByDescending(x => x.EmployeeRequestKey).ToList();
             }
         }
 
@@ -105,20 +105,54 @@ namespace VMS.Web.Controllers
             return Json(new { Result = "OK", Record = "Se registró correctamente." });
         }
 
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpPost("[action]")]
-        public async Task<ActionResult<List<EmployeeRequest>>> PostEmployeeRequests(List<EmployeeRequest> er)
+        public async Task<ActionResult<List<EmployeeRequest>>> PostEmployeeRequests(List<EmployeeRequest> erList)
         {
-            try
-            {
-                await CreateAsync<EmployeeRequest, EmployeeRequestValidator>(er);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.InnerException);
-            }
+            if (erList.Count == 0)
+                return BadRequest("No se cargó la plantilla correctamente.");
 
-            return Json(new { Result = "OK", Record = "Se registró correctamente." });
+            foreach (var er in erList)
+            {
+                List<DateTime> dates = DatesService.GetDatesFromCheckBoxes((DateTime)er.StartDate, (DateTime)er.EndDate, er.DaysList);
+
+                if (dates.Count == 0)
+                {
+                    dates.Add((DateTime)er.StartDate);
+                }
+
+                foreach (var date in dates)
+                {
+                    try
+                    {
+                        var employeeReq = new EmployeeRequest()
+                        {
+                            EmployeeKey = er.EmployeeKey,
+                            VisitorName = er.VisitorName,
+                            VisitorEmail = er.VisitorEmail,
+                            VisitorPhone = er.VisitorPhone,
+                            TaxNumber = er.TaxNumber,
+                            Company = er.Company,
+                            PurposeKey = er.PurposeKey,
+                            StartDate = date,
+                            StartTime = er.StartTime,
+                            EndDate = date,
+                            EndTime = er.EndTime,
+                            Comments = er.Comments,
+                            Status = Status.RequestIn,
+                            DaysList = er.DaysList,
+                            CreatedBy = er.CreatedBy
+                        };
+
+                        await CreateAsync<EmployeeRequest, EmployeeRequestValidator>(employeeReq);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.InnerException);
+                    }
+                }
+            }
+            return Json(new { Result = "OK", Record = "Se registraron las solicitudes correctamente." });
         }
 
         // DELETE: api/EmployeeRequests/5

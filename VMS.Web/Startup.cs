@@ -26,11 +26,11 @@ namespace VMS.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            //services.AddDbContext<MyDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
-
             services.AddDbContext<MyDbContext>(options =>
-               options.UseSqlite(Configuration.GetConnectionString("SQLiteConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
+
+            //services.AddDbContext<MyDbContext>(options =>
+            //   options.UseSqlite(Configuration.GetConnectionString("SQLiteConnection")));
 
             services.AddSwaggerGen(c =>
             {
