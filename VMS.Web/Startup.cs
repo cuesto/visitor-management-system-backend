@@ -27,7 +27,7 @@ namespace VMS.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<MyDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
+                options.UseSqlServer(Configuration.GetConnectionString("Agrifeed")));
 
             //services.AddDbContext<MyDbContext>(options =>
             //   options.UseSqlite(Configuration.GetConnectionString("SQLiteConnection")));
