@@ -39,6 +39,7 @@ namespace VMS.Web.Controllers
                     var user = uow.GetGenericRepository<User>().Get(includeProperties: "Role")
                         .Where(x => x.IsDeleted == DataModel.Enums.IsDeleted.False)
                         .FirstOrDefault(x => x.Name == userName);
+                   
 
                     if (user == null)
                         return NotFound();
@@ -62,7 +63,7 @@ namespace VMS.Web.Controllers
                 }
             }catch(Exception ex)
             {
-                throw ex;
+                return BadRequest( ex.Message);
             }
         }
 
