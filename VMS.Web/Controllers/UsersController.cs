@@ -73,5 +73,11 @@ namespace VMS.Web.Controllers
             return await DeleteAsync<User>(key);
         }
 
+        [HttpDelete("[action]")]
+        public async Task<ActionResult<User>> DeleteUser(User user)
+        {
+            return await DeleteAsync<User>(user);
+        }
+
     }
 }

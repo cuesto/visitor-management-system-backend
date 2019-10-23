@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
@@ -32,7 +30,9 @@ namespace VMS.Web.Controllers
         {
             using (var uow = new UnitOfWork(_context))
             {
-                return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose,Employee.Department").Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.RequestIn && x.StartDate >= (DateTime.Today.AddDays(0))).OrderByDescending(x => x.EmployeeRequestKey).ToList();
+                return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose,Employee.Department")
+                    .Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.RequestIn &&
+                    x.StartDate == (DateTime.Today.AddDays(0))).OrderByDescending(x => x.EmployeeRequestKey).ToList();
             }
         }
 
