@@ -75,5 +75,12 @@ namespace VMS.Web.Controllers
             return await DeleteAsync<Employee>(key);
         }
 
+        [Authorize(Roles = "administrator")]
+        [HttpDelete("[action]")]
+        public async Task<ActionResult<Employee>> DeleteEmployee(Employee employee)
+        {
+            return await DeleteAsync<Employee>(employee);
+        }
+
     }
 }

@@ -32,6 +32,18 @@ namespace VMS.Web.Controllers
             {
                 return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose,Employee.Department")
                     .Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.RequestIn &&
+                    x.StartDate >= (DateTime.Today.AddDays(0))).OrderByDescending(x => x.EmployeeRequestKey).ToList();
+            }
+        }
+
+        [Authorize(Roles = "administrator,recepionist")]
+        [HttpGet("[action]")]
+        public ActionResult<IEnumerable<EmployeeRequest>> GetEmployeeRequestsHome()
+        {
+            using (var uow = new UnitOfWork(_context))
+            {
+                return uow.GetGenericRepository<EmployeeRequest>().Get(includeProperties: "Employee,Purpose,Employee.Department")
+                    .Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.RequestIn &&
                     x.StartDate == (DateTime.Today.AddDays(0))).OrderByDescending(x => x.EmployeeRequestKey).ToList();
             }
         }
@@ -161,6 +173,13 @@ namespace VMS.Web.Controllers
         public async Task<ActionResult<EmployeeRequest>> DeleteEmployeeRequest(int key)
         {
             return await DeleteAsync<EmployeeRequest>(key);
+        }
+
+        [Authorize(Roles = "administrator")]
+        [HttpDelete("[action]")]
+        public async Task<ActionResult<EmployeeRequest>> DeleteEmployeeRequest(EmployeeRequest employeeRequest)
+        {
+            return await DeleteAsync<EmployeeRequest>(employeeRequest);
         }
 
     }
