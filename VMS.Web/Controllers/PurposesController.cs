@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -44,6 +45,8 @@ namespace VMS.Web.Controllers
                         value = visitors.Where(c => c.PurposeKey == x.PurposeKey).Count()
                     });
                 });
+
+                visitorsByPurposeList.RemoveAll(c => c.value == 0);
 
                 return visitorsByPurposeList.OrderByDescending(x => x.value).ToList();
             }
