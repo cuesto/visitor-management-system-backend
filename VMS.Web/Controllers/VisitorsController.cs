@@ -36,6 +36,29 @@ namespace VMS.Web.Controllers
             }
         }
 
+        // GET: api/Visitors
+        [HttpGet("[action]/{startdate}/{enddate}")]
+        public ActionResult<IEnumerable<Visitor>> GetVisitors(DateTime startdate, DateTime enddate)
+        {
+            using (var uow = new UnitOfWork(_context))
+            {
+                return uow.GetGenericRepository<Visitor>().Get(includeProperties: "Employee.Department,Purpose,")
+                    .Where(x => x.IsDeleted == IsDeleted.False && (x.StartDate >= startdate && x.EndDate <= enddate)).OrderByDescending(x => x.VisitorKey).ToList();
+            }
+        }
+
+        [HttpGet("[action]/{startdate}/{enddate}")]
+        public ActionResult<IEnumerable<VisitorByDate>> GetVisitorsSummaryByDate(DateTime startdate, DateTime enddate)
+        {
+            using (var uow = new UnitOfWork(_context))
+            {
+                var visitors = uow.GetGenericRepository<Visitor>().Get(includeProperties: "Employee.Department,Purpose,")
+                    .Where(x => x.IsDeleted == IsDeleted.False && (x.StartDate >= startdate && x.EndDate <= enddate)).ToList();
+
+                return visitors.GroupBy(x => x.StartDate).Select(x => new VisitorByDate() { date = x.Key, value = x.Count() }).ToList(); ;
+            }
+        }
+
         // GET: api/Visitors/5
         [HttpGet("[action]/{key}")]
         public async Task<ActionResult<Visitor>> GetVisitor(int key)
@@ -73,5 +96,11 @@ namespace VMS.Web.Controllers
         {
             return await DeleteAsync<Visitor>(key);
         }
+    }
+
+    public class VisitorByDate
+    {
+        public DateTime date { get; set; }
+        public int value { get; set; }
     }
 }
