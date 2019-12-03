@@ -17,7 +17,8 @@
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "http://localhost:53280"
     },
     "VMS.Web": {
       "commandName": "Project",

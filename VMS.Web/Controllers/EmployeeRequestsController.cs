@@ -117,7 +117,7 @@ namespace VMS.Web.Controllers
             var employeeRequests = new List<EmployeeRequest>();
 
             if (erList.Count == 0)
-                return BadRequest("No se cargó la plantilla correctamente.");
+                return BadRequest("No se pudo cargar el archivo, revise el formato.");
 
             foreach (var er in erList)
             {
