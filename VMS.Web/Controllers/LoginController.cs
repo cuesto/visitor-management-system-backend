@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 
@@ -39,7 +37,7 @@ namespace VMS.Web.Controllers
                     var user = uow.GetGenericRepository<User>().Get(includeProperties: "Role")
                         .Where(x => x.IsDeleted == DataModel.Enums.IsDeleted.False)
                         .FirstOrDefault(x => x.Name == userName);
-                   
+
 
                     if (user == null)
                         return NotFound();
@@ -61,9 +59,10 @@ namespace VMS.Web.Controllers
                        new { token = GenerateToken(claims) }
                    );
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                return BadRequest( ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 

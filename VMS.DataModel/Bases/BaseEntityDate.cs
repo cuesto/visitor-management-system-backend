@@ -1,14 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 using VMS.DataModel.Services;
 
 namespace VMS.DataModel.Bases
 {
-   public class BaseEntityDate : BaseEntity
+    public class BaseEntityDate : BaseEntity
     {
         [Required]
         [Display(Name = "Fecha Inicio")]

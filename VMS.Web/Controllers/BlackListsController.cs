@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
@@ -25,7 +23,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/BlackLists
-        [Authorize(Roles= "administrator,recepionist")]
+        [Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<BlackList>>> GetBlackLists()
         {
@@ -50,7 +48,7 @@ namespace VMS.Web.Controllers
         // PUT: api/BlackLists/5
         [Authorize(Roles = "administrator")]
         [HttpPut("[action]")]
-        public async Task<IActionResult> PutBlackList(BlackList blackList)
+        public async Task<ActionResult<BlackList>> PutBlackList(BlackList blackList)
         {
             return await UpdateAsync<BlackList, BlackListValidator>(blackList);
         }

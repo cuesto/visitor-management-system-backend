@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Services;
 
@@ -18,7 +16,7 @@ namespace VMS.DataModel.DAL
                 Email = "administrator@mail.com",
                 IsNewPassword = true,
                 Password = "123",
-                RoleKey=1,
+                RoleKey = 1,
                 Created = DateTime.Now,
                 CreatedBy = "System",
                 IsDeleted = Enums.IsDeleted.False,

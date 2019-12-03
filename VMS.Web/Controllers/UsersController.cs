@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
@@ -52,7 +49,7 @@ namespace VMS.Web.Controllers
 
         // PUT: api/Users/5
         [HttpPut("[action]")]
-        public async Task<IActionResult> PutUser(User user)
+        public async Task<ActionResult<User>> PutUser(User user)
         {
             user = BaseEntityServices.SetPassword(user);
             return await UpdateAsync<User, UserValidator>(user);

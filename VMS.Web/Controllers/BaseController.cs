@@ -8,20 +8,17 @@ using VMS.DataModel.DAL;
 
 namespace VMS.Web.Controllers
 {
-    public class BaseController : Controller
+    public class BaseController : ControllerBase
     {
         public UnitOfWork _uow { get; set; }
 
-        private readonly MyDbContext _context;
-
         public BaseController(MyDbContext context)
         {
-            _context = context;
             _uow = new UnitOfWork(context);
         }
 
         #region Create
-        public async Task<JsonResult> CreateAsync<T, TU>(T entity)
+        public async Task<ActionResult<T>> CreateAsync<T, TU>(T entity)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
@@ -29,7 +26,7 @@ namespace VMS.Web.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return new JsonResult("Debe revisar todos los datos del formulario");
+                    return BadRequest(ModelState);
                 }
 
                 var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
@@ -38,19 +35,18 @@ namespace VMS.Web.Controllers
                 if (validations.IsValid)
                 {
                     await _uow.SaveAsync();
-                    var result = entity;
-                    return Json(new { Result = "OK", Record = result });
+                    return Ok(entity);
                 }
 
-                return Json(new { Result = "ERROR", Message = validations.ToString("|") });
+                return BadRequest(validations.ToString("|"));
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
         }
 
-        public JsonResult Create<T, TU>(T entity)
+        public ActionResult<T> Create<T, TU>(T entity)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
@@ -58,7 +54,7 @@ namespace VMS.Web.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return new JsonResult("Debe llenar todos los datos del formulario");
+                    return BadRequest(ModelState);
                 }
 
                 var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
@@ -67,18 +63,17 @@ namespace VMS.Web.Controllers
                 if (validations.IsValid)
                 {
                     _uow.Save();
-                    var result = entity;
-                    return Json(new { Result = "OK", Record = result });
+                    return Ok(entity);
                 }
-                return Json(new { Result = "ERROR", Message = validations.ToString("|") });
+                return BadRequest(validations.ToString("|"));
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
         }
 
-        public async Task<JsonResult> CreateAsync<T, TU>(IEnumerable<T> entities)
+        public async Task<ActionResult<IEnumerable<T>>> CreateAsync<T, TU>(IEnumerable<T> entities)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
@@ -86,7 +81,7 @@ namespace VMS.Web.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return new JsonResult("Debe revisar todos los datos del formulario");
+                    return BadRequest(ModelState);
                 }
 
                 var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
@@ -97,17 +92,17 @@ namespace VMS.Web.Controllers
 
                     if (!validations.IsValid)
                     {
-                        return Json(new { Result = "ERROR", Message = validations.ToString("|") });
+                        return BadRequest(validations.ToString("|"));
                     }
                 }
 
                 await _uow.SaveAsync();
-                var result = entities;
-                return Json(new { Result = "OK", Record = result });
+
+                return Ok(entities);
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
         }
 
@@ -115,7 +110,7 @@ namespace VMS.Web.Controllers
 
         #region Update
 
-        public JsonResult Update<T, TU>(T entity)
+        public ActionResult<T> Update<T, TU>(T entity)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
@@ -123,7 +118,7 @@ namespace VMS.Web.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return new JsonResult("Debe revisar todos los datos del formulario");
+                    return BadRequest(ModelState);
                 }
 
                 var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
@@ -132,19 +127,18 @@ namespace VMS.Web.Controllers
                 if (validations.IsValid)
                 {
                     _uow.Save();
-                    var result = entity;
-                    return Json(new { Result = "OK", Record = result });
+                    return Ok(entity);
                 }
 
-                return Json(new { Result = "ERROR", Message = validations.ToString("|") });
+                return BadRequest(validations.ToString("|"));
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
         }
 
-        public async Task<JsonResult> UpdateAsync<T, TU>(T entity)
+        public async Task<ActionResult<T>> UpdateAsync<T, TU>(T entity)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
@@ -152,7 +146,7 @@ namespace VMS.Web.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return new JsonResult("Debe revisar todos los datos del formulario");
+                    return BadRequest(ModelState);
                 }
 
                 var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
@@ -161,15 +155,14 @@ namespace VMS.Web.Controllers
                 if (validations.IsValid)
                 {
                     await _uow.SaveAsync();
-                    var result = entity;
-                    return Json(new { Result = "OK", Record = result });
+                    return Ok(entity);
                 }
 
-                return Json(new { Result = "ERROR", Message = validations.ToString("|") });
+                return BadRequest(validations.ToString("|"));
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
         }
 
@@ -177,62 +170,62 @@ namespace VMS.Web.Controllers
 
         #region Delete
 
-        public JsonResult Delete<T>(int key) where T : BaseEntity, new()
+        public ActionResult<T> Delete<T>(int key) where T : BaseEntity, new()
         {
             try
             {
                 _uow.GetGenericRepository<T>().Delete(key);
                 _uow.Save();
-                return Json(new { Result = "OK" });
+                return Ok();
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
 
         }
 
-        public async Task<JsonResult> DeleteAsync<T>(int key) where T : BaseEntity, new()
+        public async Task<ActionResult<T>> DeleteAsync<T>(int key) where T : BaseEntity, new()
         {
             try
             {
                 _uow.GetGenericRepository<T>().Delete(key);
                 await _uow.SaveAsync();
-                return Json(new { Result = "OK" });
+                return Ok();
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
 
         }
 
-        public JsonResult Delete<T>(T entity) where T : BaseEntity, new()
+        public ActionResult<T> Delete<T>(T entity) where T : BaseEntity, new()
         {
             try
             {
                 _uow.GetGenericRepository<T>().Delete(entity);
                 _uow.Save();
-                return Json(new { Result = "OK" });
+                return Ok();
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
 
         }
 
-        public async Task<JsonResult> DeleteAsync<T>(T entity) where T : BaseEntity, new()
+        public async Task<ActionResult<T>> DeleteAsync<T>(T entity) where T : BaseEntity, new()
         {
             try
             {
                 _uow.GetGenericRepository<T>().Delete(entity);
                 await _uow.SaveAsync();
-                return Json(new { Result = "OK" });
+                return Ok();
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
 
         }

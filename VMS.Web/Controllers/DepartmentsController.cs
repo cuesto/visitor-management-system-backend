@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +44,7 @@ namespace VMS.Web.Controllers
 
         // PUT: api/Departments/5
         [HttpPut("[action]")]
-        public async Task<IActionResult> PutDepartment(Department department)
+        public async Task<ActionResult<Department>> PutDepartment(Department department)
         {
             return await UpdateAsync<Department, DepartmentValidator>(department);
         }
@@ -59,7 +58,7 @@ namespace VMS.Web.Controllers
 
         // POST: api/Departments
         [HttpPost("[action]")]
-        public async Task<ActionResult<Department>> PostDepartments(IEnumerable<Department> departments)
+        public async Task<ActionResult<IEnumerable<Department>>> PostDepartments(IEnumerable<Department> departments)
         {
             return await CreateAsync<Department, DepartmentValidator>(departments);
         }

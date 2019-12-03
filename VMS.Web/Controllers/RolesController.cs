@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
@@ -46,7 +44,7 @@ namespace VMS.Web.Controllers
 
         // PUT: api/Roles/5
         [HttpPut("[action]")]
-        public async Task<IActionResult> PutRole(Role role)
+        public async Task<ActionResult<Role>> PutRole(Role role)
         {
             return await UpdateAsync<Role, RoleValidator>(role);
         }

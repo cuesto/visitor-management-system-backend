@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
@@ -30,9 +27,9 @@ namespace VMS.Web.Controllers
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<Employee>> GetEmployees()
         {
-            using(var uow = new UnitOfWork(_context))
+            using (var uow = new UnitOfWork(_context))
             {
-                return  uow.GetGenericRepository<Employee>().Get(includeProperties: "Department").Where(x => x.IsDeleted == IsDeleted.False).ToList();
+                return uow.GetGenericRepository<Employee>().Get(includeProperties: "Department").Where(x => x.IsDeleted == IsDeleted.False).ToList();
             }
         }
 
@@ -54,7 +51,7 @@ namespace VMS.Web.Controllers
         // PUT: api/Employees/5
         [Authorize(Roles = "administrator")]
         [HttpPut("[action]")]
-        public async Task<IActionResult> PutEmployee(Employee employee)
+        public async Task<ActionResult<Employee>> PutEmployee(Employee employee)
         {
             return await UpdateAsync<Employee, EmployeeValidator>(employee);
         }

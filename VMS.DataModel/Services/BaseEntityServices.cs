@@ -1,7 +1,6 @@
 ﻿using System;
 using VMS.DataModel.Bases;
 using VMS.DataModel.Entities;
-using VMS.DataModel.Enums;
 
 namespace VMS.DataModel.Services
 {
