@@ -88,15 +88,15 @@ namespace VMS.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
-            //app.UseMvc();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapSpaFallbackRoute(
-                name: "spa-fallback",
-                defaults: new { controller = "Home", action = "Index" });
-            });
+            app.UseMvc();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //    routes.MapSpaFallbackRoute(
+            //    name: "spa-fallback",
+            //    defaults: new { controller = "Home", action = "Index" });
+            //});
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
