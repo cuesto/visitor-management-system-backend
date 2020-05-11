@@ -8,7 +8,7 @@ using VMS.DataModel.DAL;
 
 namespace VMS.Web.Controllers
 {
-    public class BaseController : ControllerBase
+    public class BaseController : ControllerBase, IBaseController
     {
         public UnitOfWork _uow { get; set; }
 
@@ -154,7 +154,7 @@ namespace VMS.Web.Controllers
 
                 if (validations.IsValid)
                 {
-                    await _uow.SaveAsync();
+                    var rslt = await _uow.SaveAsync();
                     return Ok(entity);
                 }
 
