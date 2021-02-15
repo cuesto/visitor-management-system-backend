@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using consulta_dgii_csharp;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Octetus.ConsultasDgii.ConsultasWeb;
+using Octetus.ConsultasDgii.Core.Messages;
 using VMS.DataModel.DAL;
 using VMS.Utils;
 
@@ -17,18 +20,30 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/VerifyRNC/40220076848
-        [Authorize(Roles = "administrator,recepionist")]
+        //[Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]/{rnc}")]
-        public ActionResult<object> VerifyRNC(string rnc)
+        public ActionResult<ResultRnc> VerifyRNC(string rnc)
         {
-            var company = DGII.ConsultarRNC(rnc);
+            var dgii = new DgiiScraper();
+            var resultRNC = new ResultRnc();
 
-            if (company == null)
+            var response = dgii.Execute(new DgiiQueryRequest
+            {
+                Rnc = rnc
+            });
+
+            if (response.IsOk)
+            {
+                resultRNC.CedulaRnc = response.Rnc;
+                resultRNC.Nombre = response.Nombre;
+            }
+
+            if (string.IsNullOrEmpty(resultRNC.Nombre))
             {
                 return NotFound();
             }
 
-            return company;
+            return resultRNC;
         }
     }
 }
