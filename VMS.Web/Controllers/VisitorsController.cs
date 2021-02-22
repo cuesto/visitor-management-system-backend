@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Hangfire;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
 using VMS.DataModel.Validators;
+using VMS.Web.Models;
+using VMS.Web.Services;
 
 namespace VMS.Web.Controllers
 {
@@ -17,10 +21,12 @@ namespace VMS.Web.Controllers
     public class VisitorsController : BaseController
     {
         private readonly MyDbContext _context;
+        private readonly ITwilioService twilioService;
 
-        public VisitorsController(MyDbContext context) : base(context)
+        public VisitorsController(MyDbContext context, ITwilioService twilioService) : base(context)
         {
             _context = context;
+            this.twilioService = twilioService;
         }
 
         // GET: api/Visitors
@@ -85,6 +91,17 @@ namespace VMS.Web.Controllers
             visitor.StartDate = DateTime.Now;
             visitor.EndDate = DateTime.Now;
             visitor.Status = Status.VisitorIn;
+
+            if (Debugger.IsAttached)
+            {
+                await SendSMS(visitor);
+            }
+            else
+            {
+                BackgroundJob.Enqueue(
+               () => SendSMS(visitor));
+            }
+
             return await CreateAsync<Visitor, VisitorValidator>(visitor);
         }
 
@@ -93,6 +110,47 @@ namespace VMS.Web.Controllers
         public async Task<ActionResult<Visitor>> DeleteVisitor(int key)
         {
             return await DeleteAsync<Visitor>(key);
+        }
+
+        [AutomaticRetry(Attempts = 0)]
+        [HttpPost("[action]")]
+        public async Task SendSMS(Visitor visitor)
+        {
+            try
+            {
+                var body = GetMessage(visitor);
+
+                var request = new SMSRequest()
+                {
+                    To = "+1"+visitor.Phone,
+                    Body = body
+                };
+
+                await twilioService.SendSMSAsync(request);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private string GetMessage(Visitor visitor)
+        {
+            string message = "";
+
+            using (var uow = new UnitOfWork(_context))
+            {
+                var employee = uow.GetGenericRepository<Employee>().Get(includeProperties: "Department")
+                    .SingleOrDefault(x => x.IsDeleted == IsDeleted.False && x.EmployeeKey == visitor.EmployeeKey);
+
+                Random rd = new Random();
+                int rand_num = rd.Next(100000, 999999);
+
+                message = $"El Sr(a). {employee.Name} del departamento {employee.DepartmentName} lo recibirá en unos momentos" +
+                        $", por motivos de seguridad su código de ingreso es {rand_num}";
+            }
+
+            return message;
         }
     }
 

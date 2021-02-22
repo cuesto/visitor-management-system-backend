@@ -16,6 +16,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VMS.DataModel.DAL;
+using VMS.Web.Services;
+using VMS.Web.Settings;
 
 namespace VMS.Web
 {
@@ -31,6 +33,10 @@ namespace VMS.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<TwilioSettings>(Configuration.GetSection("TwilioSettings"));
+
+            services.AddTransient<ITwilioService, TwilioService>();
+
             services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
 
