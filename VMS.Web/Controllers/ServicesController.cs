@@ -1,10 +1,10 @@
-﻿using consulta_dgii_csharp;
+﻿
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Octetus.ConsultasDgii.ConsultasWeb;
 using Octetus.ConsultasDgii.Core.Messages;
 using VMS.DataModel.DAL;
-using VMS.Utils;
+using VMS.DataModel.Entities;
 
 namespace VMS.Web.Controllers
 {

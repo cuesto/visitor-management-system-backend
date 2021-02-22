@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
+using VMS.DataModel.Services;
 using VMS.DataModel.Validators;
-using VMS.Utils;
 
 namespace VMS.Web.Controllers
 {

@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Octetus.ConsultasDgii.ConsultasWeb;
 using Octetus.ConsultasDgii.Core.Messages;
-using VMS.Utils;
 
 namespace VMS.Test
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace VMS.Utils
+namespace VMS.DataModel.Services
 {
     public class DatesService
     {

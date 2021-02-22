@@ -33,7 +33,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VMS.DataModel\VMS.DataModel.csproj" />
-    <ProjectReference Include="..\VMS.Utils\VMS.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
