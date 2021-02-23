@@ -20,11 +20,13 @@ namespace VMS.Web.Services
         {
             TwilioClient.Init(_twilioSettings.TWILIO_ACCOUNT_SID, _twilioSettings.TWILIO_AUTH_TOKEN);
 
-            MessageResource.Create(
-                body: "Join Earth's mightiest heroes. Like Kevin Bacon.",
+          var message =  MessageResource.Create(
+                body: smsRequest.Body,
                 from: new Twilio.Types.PhoneNumber(_twilioSettings.From),
                 to: new Twilio.Types.PhoneNumber(smsRequest.To)
             );
+
+            var a = message;
         }
     }
 }

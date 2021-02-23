@@ -12,6 +12,8 @@ namespace VMS.DataModel.DAL
 
         }
 
+        public MyDbContext() { }
+
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<EmployeeRequest> EmployeeRequest { get; set; }
