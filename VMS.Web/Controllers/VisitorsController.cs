@@ -15,7 +15,7 @@ using VMS.Web.Services;
 
 namespace VMS.Web.Controllers
 {
-    [Authorize(Roles = "administrator,recepionist")]
+    //[Authorize(Roles = "administrator,recepionist")]
     [Route("api/[controller]")]
     [ApiController]
     public class VisitorsController : BaseController

@@ -24,7 +24,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/EmployeeRequests
-        [Authorize(Roles = "administrator,recepionist")]
+        //[Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<EmployeeRequest>> GetEmployeeRequests()
         {
@@ -36,7 +36,7 @@ namespace VMS.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "administrator,recepionist")]
+        //[Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<EmployeeRequest>> GetEmployeeRequestsHome()
         {
@@ -49,7 +49,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/EmployeeRequests/5
-        [Authorize(Roles = "administrator,recepionist")]
+        //[Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]/{key}")]
         public async Task<ActionResult<EmployeeRequest>> GetEmployeeRequest(int key)
         {
@@ -64,7 +64,7 @@ namespace VMS.Web.Controllers
         }
 
         // PUT: api/EmployeeRequests/5
-        [Authorize(Roles = "administrator,recepionist")]
+        //[Authorize(Roles = "administrator,recepionist")]
         [HttpPut("[action]")]
         public async Task<ActionResult<EmployeeRequest>> PutEmployeeRequest(EmployeeRequest employeeRequest)
         {
@@ -72,7 +72,7 @@ namespace VMS.Web.Controllers
         }
 
         // POST: api/EmployeeRequests
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpPost("[action]")]
         public async Task<ActionResult<IEnumerable<EmployeeRequest>>> PostEmployeeRequest(EmployeeRequest er)
         {
@@ -157,14 +157,14 @@ namespace VMS.Web.Controllers
         }
 
         // DELETE: api/EmployeeRequests/5
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpDelete("[action]/{key}")]
         public async Task<ActionResult<EmployeeRequest>> DeleteEmployeeRequest(int key)
         {
             return await DeleteAsync<EmployeeRequest>(key);
         }
 
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpDelete("[action]")]
         public async Task<ActionResult<EmployeeRequest>> DeleteEmployeeRequest(EmployeeRequest employeeRequest)
         {
