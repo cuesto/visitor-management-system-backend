@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using VMS.DataModel.Bases;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace VMS.DataModel.Entities
 {

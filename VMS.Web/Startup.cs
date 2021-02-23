@@ -49,7 +49,8 @@ namespace VMS.Web
                     builder => builder.WithOrigins("*").WithHeaders("*").WithMethods("*"));
             });
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();

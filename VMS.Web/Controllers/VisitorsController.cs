@@ -92,16 +92,6 @@ namespace VMS.Web.Controllers
             visitor.EndDate = DateTime.Now;
             visitor.Status = Status.VisitorIn;
 
-            if (Debugger.IsAttached)
-            {
-                await SendSMS(visitor);
-            }
-            else
-            {
-                BackgroundJob.Enqueue(
-               () => SendSMS(visitor));
-            }
-
             return await CreateAsync<Visitor, VisitorValidator>(visitor);
         }
 
@@ -113,20 +103,39 @@ namespace VMS.Web.Controllers
         }
 
         [AutomaticRetry(Attempts = 0)]
-        [HttpPost("[action]")]
-        public async Task SendSMS(Visitor visitor)
+        [HttpPost("[action]/{visitorKey}")]
+        public async Task SendSMSAsync(int visitorKey)
+        {
+            if (Debugger.IsAttached)
+            {
+                await SendSMS(visitorKey);
+            }
+            else
+            {
+                BackgroundJob.Enqueue(
+               () => SendSMS(visitorKey));
+            }
+        }
+
+        public async Task SendSMS(int visitorKey)
         {
             try
             {
-                var body = GetMessage(visitor);
+                using (var uow = new UnitOfWork(_context))
+                {
+                    var visitor = uow.GetGenericRepository<Visitor>().Get()
+                    .SingleOrDefault(x => x.IsDeleted == IsDeleted.False && x.VisitorKey == visitorKey);
+                
+                var body = GetMessage(visitor.EmployeeKey);
 
                 var request = new SMSRequest()
                 {
-                    To = "+1"+visitor.Phone,
+                    To = "+1" + visitor.Phone,
                     Body = body
                 };
-
+                
                 await twilioService.SendSMSAsync(request);
+                }
             }
             catch (Exception ex)
             {
@@ -134,14 +143,14 @@ namespace VMS.Web.Controllers
             }
         }
 
-        private string GetMessage(Visitor visitor)
+        private string GetMessage(int employeeKey)
         {
             string message = "";
 
             using (var uow = new UnitOfWork(_context))
             {
                 var employee = uow.GetGenericRepository<Employee>().Get(includeProperties: "Department")
-                    .SingleOrDefault(x => x.IsDeleted == IsDeleted.False && x.EmployeeKey == visitor.EmployeeKey);
+                    .SingleOrDefault(x => x.IsDeleted == IsDeleted.False && x.EmployeeKey == employeeKey);
 
                 Random rd = new Random();
                 int rand_num = rd.Next(100000, 999999);
