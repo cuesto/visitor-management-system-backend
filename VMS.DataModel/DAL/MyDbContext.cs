@@ -11,7 +11,6 @@ namespace VMS.DataModel.DAL
         {
 
         }
-        public MyDbContext() { }
 
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
@@ -24,21 +23,15 @@ namespace VMS.DataModel.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-                // equivalent of modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-                entityType.Relational().TableName = entityType.DisplayName();
+                modelBuilder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name);
 
-                // equivalent of modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-                // and modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
                 entityType.GetForeignKeys()
                     .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade)
                     .ToList()
                     .ForEach(fk => fk.DeleteBehavior = DeleteBehavior.Restrict);
             }
-
-            modelBuilder.Seed();
 
             base.OnModelCreating(modelBuilder);
         }
