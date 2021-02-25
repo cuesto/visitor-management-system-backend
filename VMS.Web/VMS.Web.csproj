@@ -37,12 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="consulta-dgii-csharp">
-      <HintPath>..\VMS.Utils\lib\consulta-dgii-csharp.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
