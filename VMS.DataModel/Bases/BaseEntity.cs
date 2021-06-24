@@ -7,7 +7,7 @@ namespace VMS.DataModel.Bases
     public class BaseEntity : Base
     {
         [HiddenInput(DisplayValue = false)]
-        public DateTime? Created { get; set; }
+        public DateTime? Created { get; set; } = DateTime.Now;
         [MaxLength(50)]
         [HiddenInput(DisplayValue = false)]
         public string CreatedBy { get; set; }

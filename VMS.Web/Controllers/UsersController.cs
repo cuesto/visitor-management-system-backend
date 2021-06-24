@@ -11,7 +11,7 @@ using VMS.DataModel.Validators;
 
 namespace VMS.Web.Controllers
 {
-    [Authorize(Roles = "administrator")]
+    //[Authorize(Roles = "administrator")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : BaseController

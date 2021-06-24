@@ -23,7 +23,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/BlackLists
-        [Authorize(Roles = "administrator,recepionist")]
+        //[Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<BlackList>>> GetBlackLists()
         {
@@ -31,7 +31,7 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/BlackLists/5
-        [Authorize(Roles = "administrator,recepionist")]
+        //[Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]/{key}")]
         public async Task<ActionResult<BlackList>> GetBlackList(int key)
         {
@@ -46,7 +46,7 @@ namespace VMS.Web.Controllers
         }
 
         // PUT: api/BlackLists/5
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpPut("[action]")]
         public async Task<ActionResult<BlackList>> PutBlackList(BlackList blackList)
         {
@@ -54,7 +54,7 @@ namespace VMS.Web.Controllers
         }
 
         // POST: api/BlackLists
-        [Authorize(Roles = "administrator")]
+       //[Authorize(Roles = "administrator")]
         [HttpPost("[action]")]
         public async Task<ActionResult<BlackList>> PostBlackList(BlackList blackList)
         {
@@ -62,14 +62,14 @@ namespace VMS.Web.Controllers
         }
 
         // DELETE: api/BlackLists/5
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpDelete("[action]/{key}")]
         public async Task<ActionResult<BlackList>> DeleteBlackList(int key)
         {
             return await DeleteAsync<BlackList>(key);
         }
 
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpDelete("[action]")]
         public async Task<ActionResult<BlackList>> DeleteBlackList(BlackList blackList)
         {

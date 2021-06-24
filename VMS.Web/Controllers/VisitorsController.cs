@@ -1,26 +1,32 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Hangfire;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
 using VMS.DataModel.Validators;
+using VMS.Web.Models;
+using VMS.Web.Services;
 
 namespace VMS.Web.Controllers
 {
-    [Authorize(Roles = "administrator,recepionist")]
+    //[Authorize(Roles = "administrator,recepionist")]
     [Route("api/[controller]")]
     [ApiController]
     public class VisitorsController : BaseController
     {
         private readonly MyDbContext _context;
+        private readonly ITwilioService twilioService;
 
-        public VisitorsController(MyDbContext context) : base(context)
+        public VisitorsController(MyDbContext context, ITwilioService twilioService) : base(context)
         {
             _context = context;
+            this.twilioService = twilioService;
         }
 
         // GET: api/Visitors
@@ -85,6 +91,7 @@ namespace VMS.Web.Controllers
             visitor.StartDate = DateTime.Now;
             visitor.EndDate = DateTime.Now;
             visitor.Status = Status.VisitorIn;
+
             return await CreateAsync<Visitor, VisitorValidator>(visitor);
         }
 
@@ -93,6 +100,66 @@ namespace VMS.Web.Controllers
         public async Task<ActionResult<Visitor>> DeleteVisitor(int key)
         {
             return await DeleteAsync<Visitor>(key);
+        }
+
+        [AutomaticRetry(Attempts = 0)]
+        [HttpPost("[action]/{visitorKey}")]
+        public async Task SendSMSAsync(int visitorKey)
+        {
+            if (Debugger.IsAttached)
+            {
+                await SendSMS(visitorKey);
+            }
+            else
+            {
+                BackgroundJob.Enqueue(
+               () => SendSMS(visitorKey));
+            }
+        }
+
+        public async Task SendSMS(int visitorKey)
+        {
+            try
+            {
+                using (var uow = new UnitOfWork(_context))
+                {
+                    var visitor = uow.GetGenericRepository<Visitor>().Get()
+                    .SingleOrDefault(x => x.IsDeleted == IsDeleted.False && x.VisitorKey == visitorKey);
+                
+                var body = GetMessage(visitor.EmployeeKey);
+
+                var request = new SMSRequest()
+                {
+                    To = "+1" + visitor.Phone,
+                    Body = body
+                };
+                
+                await twilioService.SendSMSAsync(request);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private string GetMessage(int employeeKey)
+        {
+            string message = "";
+
+            using (var uow = new UnitOfWork(_context))
+            {
+                var employee = uow.GetGenericRepository<Employee>().Get(includeProperties: "Department")
+                    .SingleOrDefault(x => x.IsDeleted == IsDeleted.False && x.EmployeeKey == employeeKey);
+
+                Random rd = new Random();
+                int rand_num = rd.Next(100000, 999999);
+
+                message = $"El Sr(a). {employee.Name} del departamento {employee.DepartmentName} lo recibirá en unos momentos" +
+                        $", por motivos de seguridad su código de ingreso es {rand_num}";
+            }
+
+            return message;
         }
     }
 
