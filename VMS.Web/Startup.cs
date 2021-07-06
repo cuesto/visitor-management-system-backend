@@ -85,6 +85,11 @@ namespace VMS.Web
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                     };
                 });
+
+            services
+                // more specific than AddMvc()
+                .AddControllersWithViews()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,19 +113,35 @@ namespace VMS.Web
                 });
             }
 
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //    //routes.MapSpaFallbackRoute(
+            //    //name: "spa-fallback",
+            //    //defaults: new { controller = "Home", action = "Index" });
+            //});
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger API");
+            });
+
             app.UseCors("All");
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
-
             app.UseStaticFiles();
+
+            app.UseRouting();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
 
             app.UseSwagger();
