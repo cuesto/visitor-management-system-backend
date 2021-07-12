@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel;
 using VMS.DataModel.Enums;
 

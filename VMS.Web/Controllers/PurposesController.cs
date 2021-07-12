@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
@@ -45,6 +42,8 @@ namespace VMS.Web.Controllers
                     });
                 });
 
+                visitorsByPurposeList.RemoveAll(c => c.value == 0);
+
                 return visitorsByPurposeList.OrderByDescending(x => x.value).ToList();
             }
         }
@@ -72,7 +71,7 @@ namespace VMS.Web.Controllers
 
         // PUT: api/Purposes/5
         [HttpPut("[action]")]
-        public async Task<IActionResult> PutPurpose(Purpose Purpose)
+        public async Task<ActionResult<Purpose>> PutPurpose(Purpose Purpose)
         {
             return await UpdateAsync<Purpose, PurposeValidator>(Purpose);
         }
@@ -86,7 +85,7 @@ namespace VMS.Web.Controllers
 
         // POST: api/Purposes
         [HttpPost("[action]")]
-        public async Task<ActionResult<Purpose>> PostPurposes(IEnumerable<Purpose> Purposes)
+        public async Task<ActionResult<IEnumerable<Purpose>>> PostPurposes(IEnumerable<Purpose> Purposes)
         {
             return await CreateAsync<Purpose, PurposeValidator>(Purposes);
         }

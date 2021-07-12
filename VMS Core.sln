@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VMS.Utils", "VMS.Utils\VMS.Utils.csproj", "{0C468571-9550-43CC-8425-A0610361E426}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VMS.Web", "VMS.Web\VMS.Web.csproj", "{E1A5626C-8CA4-47DB-8C37-4C262E4FC1D1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VMS.Test", "VMS.Test\VMS.Test.csproj", "{EB29534F-EE3F-4D9E-A16A-E21ABDAEA1E2}"
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0C468571-9550-43CC-8425-A0610361E426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C468571-9550-43CC-8425-A0610361E426}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C468571-9550-43CC-8425-A0610361E426}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C468571-9550-43CC-8425-A0610361E426}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E1A5626C-8CA4-47DB-8C37-4C262E4FC1D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1A5626C-8CA4-47DB-8C37-4C262E4FC1D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1A5626C-8CA4-47DB-8C37-4C262E4FC1D1}.Release|Any CPU.ActiveCfg = Release|Any CPU

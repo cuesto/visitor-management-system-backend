@@ -1,7 +1,6 @@
 ﻿using System;
 using VMS.DataModel.Bases;
 using VMS.DataModel.Entities;
-using VMS.DataModel.Enums;
 
 namespace VMS.DataModel.Services
 {
@@ -14,19 +13,12 @@ namespace VMS.DataModel.Services
         /// <param name="entityBase">The entity base.</param>
         public static void SetValues<T>(this T entityBase) where T : BaseEntity
         {
-            //var userName = Environment.UserName == null
-            //    ? ""
-            //    : Environment.UserName;
-
             if (string.IsNullOrEmpty(entityBase.ModifiedBy))
             {
                 entityBase.Created = DateTime.Now;
-                //entityBase.CreatedBy = userName;
-                //entityBase.IsDeleted = IsDeleted.False;
             }
             else
             {
-                //entityBase.ModifiedBy = userName;
                 entityBase.Modified = DateTime.Now;
             }
         }

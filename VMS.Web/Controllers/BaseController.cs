@@ -8,196 +8,224 @@ using VMS.DataModel.DAL;
 
 namespace VMS.Web.Controllers
 {
-    public class BaseController : Controller
+    public class BaseController : ControllerBase, IBaseController
     {
         public UnitOfWork _uow { get; set; }
 
-        private readonly MyDbContext _context;
-
         public BaseController(MyDbContext context)
         {
-            _context = context;
             _uow = new UnitOfWork(context);
         }
 
         #region Create
-        public async Task<JsonResult> CreateAsync<T, TU>(T entity)
+        public async Task<ActionResult<T>> CreateAsync<T, TU>(T entity)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return new JsonResult("Debe revisar todos los datos del formulario");
-            }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
-            var validations = _uow.GetGenericRepository<T>().Insert(entity, validator);
-
-            if (validations.IsValid)
-            {
-                await _uow.SaveAsync();
-                var result = entity;
-                return Json(new { Result = "OK", Record = result });
-            }
-
-            return Json(new { Result = "ERROR", Message = validations.ToString("|") });
-        }
-
-        public JsonResult Create<T, TU>(T entity)
-            where T : BaseEntity, new()
-            where TU : AbstractValidator<T>
-        {
-            if (!ModelState.IsValid)
-            {
-                return new JsonResult("Debe llenar todos los datos del formulario");
-            }
-
-            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
-            var validations = _uow.GetGenericRepository<T>().Insert(entity, validator);
-
-            if (validations.IsValid)
-            {
-                _uow.Save();
-                var result = entity;
-                return Json(new { Result = "OK", Record = result });
-            }
-            return Json(new { Result = "ERROR", Message = validations.ToString("|") });
-        }
-
-        public async Task<JsonResult> CreateAsync<T, TU>(IEnumerable<T> entities)
-            where T : BaseEntity, new()
-            where TU : AbstractValidator<T>
-        {
-            if (!ModelState.IsValid)
-            {
-                return new JsonResult("Debe revisar todos los datos del formulario");
-            }
-
-            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
-
-            foreach (var entity in entities)
-            {
+                var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
                 var validations = _uow.GetGenericRepository<T>().Insert(entity, validator);
 
-                if (!validations.IsValid)
+                if (validations.IsValid)
                 {
-                    return Json(new { Result = "ERROR", Message = validations.ToString("|") });
+                    await _uow.SaveAsync();
+                    return Ok(entity);
                 }
-            }
 
-            await _uow.SaveAsync();
-            var result = entities;
-            return Json(new { Result = "OK", Record = result });
+                return BadRequest(validations.ToString("|"));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        public ActionResult<T> Create<T, TU>(T entity)
+            where T : BaseEntity, new()
+            where TU : AbstractValidator<T>
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
+                var validations = _uow.GetGenericRepository<T>().Insert(entity, validator);
+
+                if (validations.IsValid)
+                {
+                    _uow.Save();
+                    return Ok(entity);
+                }
+                return BadRequest(validations.ToString("|"));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        public async Task<ActionResult<IEnumerable<T>>> CreateAsync<T, TU>(IEnumerable<T> entities)
+            where T : BaseEntity, new()
+            where TU : AbstractValidator<T>
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
+
+                foreach (var entity in entities)
+                {
+                    var validations = _uow.GetGenericRepository<T>().Insert(entity, validator);
+
+                    if (!validations.IsValid)
+                    {
+                        return BadRequest(validations.ToString("|"));
+                    }
+                }
+
+                await _uow.SaveAsync();
+
+                return Ok(entities);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         #endregion
 
         #region Update
 
-        public JsonResult Update<T, TU>(T entity)
+        public ActionResult<T> Update<T, TU>(T entity)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return new JsonResult("Debe revisar todos los datos del formulario");
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
+                var validations = _uow.GetGenericRepository<T>().Update(entity, validator);
+
+                if (validations.IsValid)
+                {
+                    _uow.Save();
+                    return Ok(entity);
+                }
+
+                return BadRequest(validations.ToString("|"));
             }
-
-            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
-            var validations = _uow.GetGenericRepository<T>().Update(entity, validator);
-
-            if (validations.IsValid)
+            catch (Exception ex)
             {
-                _uow.Save();
-                var result = entity;
-                return Json(new { Result = "OK", Record = result });
+                return StatusCode(500, ex);
             }
-
-            return Json(new { Result = "ERROR", Message = validations.ToString("|") });
         }
 
-        public async Task<JsonResult> UpdateAsync<T, TU>(T entity)
+        public async Task<ActionResult<T>> UpdateAsync<T, TU>(T entity)
             where T : BaseEntity, new()
             where TU : AbstractValidator<T>
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return new JsonResult("Debe revisar todos los datos del formulario");
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
+                var validations = _uow.GetGenericRepository<T>().Update(entity, validator);
+
+                if (validations.IsValid)
+                {
+                    var rslt = await _uow.SaveAsync();
+                    return Ok(entity);
+                }
+
+                return BadRequest(validations.ToString("|"));
             }
-
-            var validator = (AbstractValidator<T>)Activator.CreateInstance(typeof(TU), new object[] { _uow });
-            var validations = _uow.GetGenericRepository<T>().Update(entity, validator);
-
-            if (validations.IsValid)
+            catch (Exception ex)
             {
-                await _uow.SaveAsync();
-                var result = entity;
-                return Json(new { Result = "OK", Record = result });
+                return StatusCode(500, ex);
             }
-
-            return Json(new { Result = "ERROR", Message = validations.ToString("|") });
         }
 
         #endregion
 
         #region Delete
 
-        public JsonResult Delete<T>(int key) where T : BaseEntity, new()
+        public ActionResult<T> Delete<T>(int key) where T : BaseEntity, new()
         {
             try
             {
                 _uow.GetGenericRepository<T>().Delete(key);
                 _uow.Save();
-                return Json(new { Result = "OK" });
+                return Ok();
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
 
         }
 
-        public async Task<JsonResult> DeleteAsync<T>(int key) where T : BaseEntity, new()
+        public async Task<ActionResult<T>> DeleteAsync<T>(int key) where T : BaseEntity, new()
         {
             try
             {
                 _uow.GetGenericRepository<T>().Delete(key);
                 await _uow.SaveAsync();
-                return Json(new { Result = "OK" });
+                return Ok();
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
 
         }
 
-        public JsonResult Delete<T>(T entity) where T : BaseEntity, new()
+        public ActionResult<T> Delete<T>(T entity) where T : BaseEntity, new()
         {
             try
             {
                 _uow.GetGenericRepository<T>().Delete(entity);
                 _uow.Save();
-                return Json(new { Result = "OK" });
+                return Ok();
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
 
         }
 
-        public async Task<JsonResult> DeleteAsync<T>(T entity) where T : BaseEntity, new()
+        public async Task<ActionResult<T>> DeleteAsync<T>(T entity) where T : BaseEntity, new()
         {
             try
             {
                 _uow.GetGenericRepository<T>().Delete(entity);
                 await _uow.SaveAsync();
-                return Json(new { Result = "OK" });
+                return Ok();
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", ex.Message });
+                return StatusCode(500, ex);
             }
 
         }

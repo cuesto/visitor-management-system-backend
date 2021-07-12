@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using VMS.DataModel.Bases;
 using VMS.DataModel.Enums;
-using VMS.DataModel.Services;
 
 namespace VMS.DataModel.Entities
 {

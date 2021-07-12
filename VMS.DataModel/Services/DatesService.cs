@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace VMS.Utils
+namespace VMS.DataModel.Services
 {
     public class DatesService
     {
@@ -91,7 +91,7 @@ namespace VMS.Utils
                 daysToCheck.Add(DayOfWeek.Sunday);
             }
 
-            if((beginDate != endDate)&& daysToCheck.Count == 0)
+            if ((beginDate != endDate) && daysToCheck.Count == 0)
             {
                 foreach (DayOfWeek dayOfWeek in (DayOfWeek[])Enum.GetValues(typeof(DayOfWeek)))
                 {

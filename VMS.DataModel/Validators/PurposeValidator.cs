@@ -1,8 +1,5 @@
 ﻿using FluentValidation;
 using LinqKit;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 

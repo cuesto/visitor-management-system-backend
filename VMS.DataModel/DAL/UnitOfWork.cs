@@ -8,8 +8,10 @@ namespace VMS.DataModel.DAL
 {
     public interface IUnitOfWork : IDisposable
     {
-        void Save();
-        Task SaveAsync();
+        int Save();
+        Task<int> SaveAsync();
+        IGenericRepository<T> GetGenericRepository<T>() where T : BaseEntity;
+        void RejectChanges();
     }
 
     public class UnitOfWork : IUnitOfWork
@@ -26,11 +28,11 @@ namespace VMS.DataModel.DAL
             _dbContext = dbContext;
         }
 
-        public void Save()
+        public int Save()
         {
             try
             {
-                _dbContext.SaveChanges();
+                return _dbContext.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -38,11 +40,11 @@ namespace VMS.DataModel.DAL
             }
         }
 
-        public async Task SaveAsync()
+        public async Task<int> SaveAsync()
         {
             try
             {
-                await _dbContext.SaveChangesAsync();
+                return await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {

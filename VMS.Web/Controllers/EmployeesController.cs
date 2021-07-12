@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using VMS.DataModel.DAL;
 using VMS.DataModel.Entities;
 using VMS.DataModel.Enums;
@@ -26,18 +23,18 @@ namespace VMS.Web.Controllers
         }
 
         // GET: api/Employees
-        [Authorize(Roles = "administrator,recepionist")]
+        //[Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<Employee>> GetEmployees()
         {
-            using(var uow = new UnitOfWork(_context))
+            using (var uow = new UnitOfWork(_context))
             {
-                return  uow.GetGenericRepository<Employee>().Get(includeProperties: "Department").Where(x => x.IsDeleted == IsDeleted.False).ToList();
+                return uow.GetGenericRepository<Employee>().Get(includeProperties: "Department").Where(x => x.IsDeleted == IsDeleted.False).ToList();
             }
         }
 
         // GET: api/Employee/5
-        [Authorize(Roles = "administrator,recepionist")]
+        //[Authorize(Roles = "administrator,recepionist")]
         [HttpGet("[action]/{key}")]
         public async Task<ActionResult<Employee>> GetEmployee(int key)
         {
@@ -52,15 +49,15 @@ namespace VMS.Web.Controllers
         }
 
         // PUT: api/Employees/5
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpPut("[action]")]
-        public async Task<IActionResult> PutEmployee(Employee employee)
+        public async Task<ActionResult<Employee>> PutEmployee(Employee employee)
         {
             return await UpdateAsync<Employee, EmployeeValidator>(employee);
         }
 
         // POST: api/Employees
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpPost("[action]")]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
@@ -68,11 +65,18 @@ namespace VMS.Web.Controllers
         }
 
         // DELETE: api/Employees/5
-        [Authorize(Roles = "administrator")]
+        //[Authorize(Roles = "administrator")]
         [HttpDelete("[action]/{key}")]
         public async Task<ActionResult<Employee>> DeleteEmployee(int key)
         {
             return await DeleteAsync<Employee>(key);
+        }
+
+        //[Authorize(Roles = "administrator")]
+        [HttpDelete("[action]")]
+        public async Task<ActionResult<Employee>> DeleteEmployee(Employee employee)
+        {
+            return await DeleteAsync<Employee>(employee);
         }
 
     }
