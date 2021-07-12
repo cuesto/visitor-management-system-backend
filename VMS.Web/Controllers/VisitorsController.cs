@@ -117,7 +117,7 @@ namespace VMS.Web.Controllers
             }
         }
 
-        public async Task SendSMS(int visitorKey)
+        private async Task SendSMS(int visitorKey)
         {
             try
             {

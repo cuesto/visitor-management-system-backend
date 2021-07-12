@@ -38,7 +38,7 @@ namespace VMS.Web
             services.AddTransient<ITwilioService, TwilioService>();
 
             services.AddDbContext<MyDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
+                options.UseSqlServer(Configuration.GetConnectionString("Agrifeed")));
 
             //services.AddDbContext<MyDbContext>(options =>
             //   options.UseSqlite(Configuration.GetConnectionString("SQLiteConnection")));
@@ -59,7 +59,7 @@ namespace VMS.Web
             .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
             .UseSimpleAssemblyNameTypeSerializer()
             .UseRecommendedSerializerSettings()
-            .UseSqlServerStorage(Configuration.GetConnectionString("Conexion"), new SqlServerStorageOptions
+            .UseSqlServerStorage(Configuration.GetConnectionString("Agrifeed"), new SqlServerStorageOptions
             {
                 CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
                 SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
