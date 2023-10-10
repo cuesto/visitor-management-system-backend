@@ -29,7 +29,7 @@ namespace VMS.Web.Controllers
             using (var uow = new UnitOfWork(_context))
             {
                 var visitors = uow.GetGenericRepository<Visitor>().Get().Where(x => x.IsDeleted == IsDeleted.False
-                && x.Status == Status.VisitorIn).ToList();
+                && x.Status == Status.VisitorIn && x.StartDate >=System.DateTime.Today.Date).ToList();
                 var purposes = uow.GetGenericRepository<Purpose>().Get().Where(x => x.IsDeleted == IsDeleted.False).ToList();
                 var visitorsByPurposeList = new List<PurposeCount>();
 

@@ -36,7 +36,7 @@ namespace VMS.Web.Controllers
             using (var uow = new UnitOfWork(_context))
             {
                 return uow.GetGenericRepository<Visitor>().Get(includeProperties: "Employee.Department,Purpose,")
-                    .Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.VisitorIn).OrderByDescending(x => x.VisitorKey).ToList();
+                    .Where(x => x.IsDeleted == IsDeleted.False && x.Status == Status.VisitorIn && x.StartDate >= DateTime.Today.Date).OrderByDescending(x => x.VisitorKey).ToList();
             }
         }
 
