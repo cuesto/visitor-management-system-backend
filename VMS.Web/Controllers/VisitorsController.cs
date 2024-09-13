@@ -77,6 +77,25 @@ namespace VMS.Web.Controllers
             return visitor;
         }
 
+        // GET: api/Visitors/5
+        [HttpGet("[action]/{cedula}")]
+        public async Task<ActionResult<Visitor>> GetVisitorByCedula(string cedula)
+        {
+            
+            using (var uow = new UnitOfWork(_context))
+            {
+                var visitor = uow.GetGenericRepository<Visitor>().Get()
+                    .Where(x => x.IsDeleted == IsDeleted.False && x.TaxNumberVisitor == cedula).ToList().FirstOrDefault() ;
+
+                if (visitor == null)
+                {
+                    return NotFound();
+                }
+
+                return visitor;
+            }
+        }
+
         // PUT: api/Visitors/5
         [HttpPut("[action]")]
         public async Task<ActionResult<Visitor>> PutVisitor(Visitor visitor)

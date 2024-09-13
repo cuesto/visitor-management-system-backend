@@ -33,12 +33,12 @@ namespace VMS.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<TwilioSettings>(Configuration.GetSection("TwilioSettings"));
+            //services.Configure<TwilioSettings>(Configuration.GetSection("TwilioSettings"));
 
             services.AddTransient<ITwilioService, TwilioService>();
 
             services.AddDbContext<MyDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Agrifeed")));
+                options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
 
             //services.AddDbContext<MyDbContext>(options =>
             //   options.UseSqlite(Configuration.GetConnectionString("SQLiteConnection")));
