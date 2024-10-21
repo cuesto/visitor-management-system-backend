@@ -100,6 +100,10 @@ namespace VMS.Web.Controllers
         [HttpPut("[action]")]
         public async Task<ActionResult<Visitor>> PutVisitor(Visitor visitor)
         {
+            visitor.StartDate = (DateTime)visitor.Created;
+            if (visitor.Status == Status.VisitorOut)
+                visitor.EndDate = DateTime.Now;
+
             return await UpdateAsync<Visitor, VisitorValidator>(visitor);
         }
 
@@ -108,7 +112,7 @@ namespace VMS.Web.Controllers
         public async Task<ActionResult<Visitor>> PostVisitor(Visitor visitor)
         {
             visitor.StartDate = DateTime.Now;
-            visitor.EndDate = DateTime.Now;
+            visitor.EndDate = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59);
             visitor.Status = Status.VisitorIn;
 
             return await CreateAsync<Visitor, VisitorValidator>(visitor);
